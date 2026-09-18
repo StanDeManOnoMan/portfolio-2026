@@ -396,9 +396,9 @@ ul { margin: 0; padding: 0; list-style: none; }
    zodat er nooit een rand zichtbaar wordt. */
 @keyframes drift {
   from { transform: translate(0, 0) scale(1.02); }
-  to { transform: translate(-1.8%, -1.2%) scale(1.08); }
+  to { transform: translate(-4%, -3%) scale(1.14); }
 }
-.js .hero-visual img { animation: drift 40s ease-in-out infinite alternate; will-change: transform; }
+.js .hero-visual img { animation: drift 28s ease-in-out infinite alternate; will-change: transform; }
 
 /* Direct tonen, zonder overgang: voor onderdelen die al boven het scherm liggen. */
 .js .reveal--instant, .js .reveal--instant .reveal, .js .reveal--instant .bar-fill { transition: none !important; }
