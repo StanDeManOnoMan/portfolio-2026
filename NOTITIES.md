@@ -2,6 +2,28 @@
 
 Korte handleiding om de site zelf bij te werken.
 
+## Online zetten (GitHub Pages)
+
+- Live adres: https://standemanonoman.github.io/portfolio-2026/
+- Repository: https://github.com/StanDeManOnoMan/portfolio-2026
+- Elke push naar de branch `main` wordt binnen een paar minuten automatisch gepubliceerd.
+
+Wijzigingen publiceren vanuit deze map (Git zit bij Laragon, open de Laragon-terminal
+of voeg `C:\laragon\bin\git\cmd` toe aan je PATH):
+
+```
+git add -A
+git commit -m "Korte omschrijving van wat je veranderde"
+git push
+```
+
+Wil je liever klikken dan typen: GitHub Desktop (desktop.github.com) kan deze map
+openen via "Add local repository" en doet hetzelfde met knoppen.
+
+Het oude portfolio staat nog op https://standemanonoman.github.io/portfolio/ in de
+repository `portfolio`. Die kun je op GitHub archiveren of verwijderen als je hem niet
+meer nodig hebt.
+
 ## Nog invullen
 
 1. **E-mailadres en links** · `script.js`, bovenin het blok `CONFIG`
