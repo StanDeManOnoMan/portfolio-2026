@@ -8,7 +8,7 @@
 const CONFIG = {
   // Je e-mailadres. Wordt getoond in de contactsectie en gebruikt als
   // terugvaloptie (mailto) zolang er geen formulierdienst is gekoppeld.
-  contactEmail: '',
+  contactEmail: 'standragt71@gmail.com',
 
   // Endpoint van een formulierdienst, bijvoorbeeld Formspree:
   // 'https://formspree.io/f/xxxxxxxx'. Leeg = mailto-terugval.
