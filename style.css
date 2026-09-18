@@ -398,7 +398,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   from { transform: translate(0, 0) scale(1.03); }
   to { transform: translate(var(--drift-x, -1.5%), var(--drift-y, -1%)) scale(1.03); }
 }
-.js .hero-visual img { animation: drift 14s ease-in-out infinite alternate; will-change: transform; }
+.js .hero-visual img { animation: drift 6s ease-in-out infinite alternate; will-change: transform; }
 /* Op desktop geeft de parallax-laag extra ruimte, dus mag de collage verder glijden. */
 @media (min-width: 801px) {
   .js .hero-visual img { --drift-x: -4%; --drift-y: -3%; }
