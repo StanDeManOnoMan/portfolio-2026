@@ -26,13 +26,12 @@ meer nodig hebt.
 
 ## Nog invullen
 
-1. **E-mailadres en links** · `script.js`, bovenin het blok `CONFIG`
-   - `contactEmail`: je e-mailadres. Verschijnt in de contactsectie. Het formulier opent
-     dan het mailprogramma van de bezoeker met het bericht ingevuld.
-   - `formEndpoint`: wil je berichten direct in je mailbox zonder mailprogramma? Maak een
-     gratis account op formspree.io, maak een formulier en plak hier de URL
-     (`https://formspree.io/f/xxxxxxxx`).
-   - `links`: bijvoorbeeld `{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/...' }`.
+1. **Contact** · `script.js`, bovenin het blok `CONFIG`
+   - `contactEmail`: standragt68@gmail.com, staat ingevuld. Verschijnt in de contactsectie.
+   - `formEndpoint`: het Formspree-formulier staat ingevuld. Berichten komen direct in je
+     Gmail. Beheer (limiet, spamfilter, ontvanger wijzigen): https://formspree.io, inloggen
+     met standragt68@gmail.com. Gratis tot 50 berichten per maand.
+   - `links`: nog leeg. Bijvoorbeeld `{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/...' }`.
 
 2. **Deelvoorbeeld** · `index.html`, in de `<head>`
    Na publicatie: vervang `images/hero.jpg` in de `og:image`-regel door de volledige URL,

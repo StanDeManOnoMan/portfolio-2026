@@ -12,7 +12,7 @@ const CONFIG = {
 
   // Endpoint van een formulierdienst, bijvoorbeeld Formspree:
   // 'https://formspree.io/f/xxxxxxxx'. Leeg = mailto-terugval.
-  formEndpoint: '',
+  formEndpoint: 'https://formspree.io/f/mvkggwpz',
 
   // Extra links onder het e-mailadres, bijvoorbeeld:
   // { label: 'LinkedIn', href: 'https://www.linkedin.com/in/...' }
