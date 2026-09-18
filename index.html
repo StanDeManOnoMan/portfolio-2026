@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stan Dragt · Allround mediamaker</title>
+  <meta name="description" content="Portfolio van Stan Dragt, allround mediamaker in opleiding bij Curio in Breda. Websites en visuals die er goed uitzien en gewoon werken.">
+  <meta name="theme-color" content="#f7f7f8">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <!-- Deelvoorbeeld (WhatsApp, LinkedIn, X). Vervang na publicatie de relatieve
+       afbeeldingspaden door de volledige URL, bijvoorbeeld https://jouwdomein.nl/images/hero.jpg -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Stan Dragt · Allround mediamaker">
+  <meta property="og:description" content="Portfolio van Stan Dragt uit Breda. Websites en visuals die er goed uitzien en gewoon werken.">
+  <meta property="og:image" content="images/hero.jpg">
+  <meta property="og:locale" content="nl_NL">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=14">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip-link" href="#werk">Direct naar het werk</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Hoofdmenu">
+      <a class="brand" href="#top">Stan Dragt</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="visually-hidden">Menu</span>
+      </button>
+      <ul id="nav-links" class="nav-links">
+        <li><a href="#over">Over</a></li>
+        <li><a href="#werk">Werk</a></li>
+        <li><a href="#vaardigheden">Vaardigheden</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-text">
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Portfolio · Allround mediamaker · Breda</p>
+        <h1 id="hero-title">Ik maak websites en visuals die er goed uitzien en <em>gewoon werken</em>.</h1>
+        <p class="lead">Allround mediamaker in opleiding bij Curio in Breda. Ik combineer ontwerp met code, en doe dat op dit moment als stagiair bij Ergowerken.</p>
+        <a class="button button--outline" href="#werk">
+          Bekijk het werk
+          <svg class="icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+      <div class="hero-visual">
+        <img src="images/hero.jpg?v=3" alt="Collage van websites die Stan Dragt heeft gebouwd, als schuin gekantelde browservensters" width="1600" height="1200" fetchpriority="high">
+      </div>
+    </section>
+
+    <section id="over" class="section section--tint over" aria-label="Over Stan">
+      <div class="container over-grid">
+        <div class="over-aside">
+          <div class="portrait">
+            <img src="images/portret.jpg?v=3" alt="Portret van Stan Dragt" width="660" height="780" loading="lazy">
+          </div>
+          <dl class="facts">
+            <div class="fact"><dt>Woonplaats</dt><dd>Breda</dd></div>
+            <div class="fact"><dt>Opleiding</dt><dd>Curio, Allround mediamaker</dd></div>
+            <div class="fact"><dt>Nu</dt><dd>Stage bij Ergowerken</dd></div>
+          </dl>
+        </div>
+        <div class="over-text">
+          <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Stan Dragt · Allround mediamaker</p>
+          <p class="statement">Ik ben Stan, 21 jaar, uit Breda. Ik hou van dingen maken die je meteen kunt zien: een website die soepel werkt, een visual die in één keer duidelijk is.</p>
+          <p>Bij Curio volg ik de opleiding Allround mediamaker. Daar leer ik coderen en ontwerpen, aangevuld met keuzedelen die per periode verschillen. Die combinatie van bouwen en vormgeven is precies wat ik zoek.</p>
+          <a class="text-link" href="#contact">
+            Neem contact op
+            <svg class="icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="werk" class="section werk" aria-labelledby="werk-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="werk-title">Geselecteerd werk</h2>
+          <div class="carousel-controls">
+            <span class="counter" id="carousel-counter" aria-live="polite">01 / 06</span>
+            <button class="icon-button" type="button" id="carousel-prev" aria-label="Vorige projecten">
+              <svg class="icon" width="18" height="18" viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+            </button>
+            <button class="icon-button icon-button--solid" type="button" id="carousel-next" aria-label="Volgende projecten">
+              <svg class="icon" width="18" height="18" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="carousel" id="carousel">
+          <ul class="track" id="carousel-track" aria-label="Projecten"></ul>
+        </div>
+        <p class="note">De carrousel loopt vanzelf door en pauzeert zodra je muis erboven staat. Klik op een project om de hele pagina te bekijken.</p>
+      </div>
+    </section>
+
+    <section id="vaardigheden" class="section section--tint skills" aria-labelledby="skills-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="skills-title">Waar ik goed in ben</h2>
+          <span class="label">Vaardigheden</span>
+        </div>
+        <div class="two-col">
+          <p class="skills-intro">HTML en CSS zijn mijn sterkste kant: een ontwerp netjes omzetten naar een pagina die op elk scherm klopt. JavaScript ben ik nog aan het opbouwen, van kleine interacties naar meer. In design leer ik vooral keuzes maken en die onderbouwen.</p>
+          <ul class="skill-list">
+            <li class="skill">
+              <span class="skill-name">HTML</span>
+              <span class="bar" aria-hidden="true"><span class="bar-fill" style="--value: 80%"></span></span>
+              <span class="skill-level">8 / 10</span>
+            </li>
+            <li class="skill">
+              <span class="skill-name">CSS</span>
+              <span class="bar" aria-hidden="true"><span class="bar-fill" style="--value: 85%"></span></span>
+              <span class="skill-level">8,5 / 10</span>
+            </li>
+            <li class="skill">
+              <span class="skill-name">JavaScript</span>
+              <span class="bar" aria-hidden="true"><span class="bar-fill" style="--value: 40%"></span></span>
+              <span class="skill-level">4 / 10</span>
+            </li>
+            <li class="skill">
+              <span class="skill-name">Design</span>
+              <span class="bar" aria-hidden="true"><span class="bar-fill" style="--value: 70%"></span></span>
+              <span class="skill-level">7 / 10</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="contact-title">Stuur een bericht</h2>
+          <span class="label">Contact</span>
+        </div>
+        <div class="two-col">
+          <div class="contact-aside">
+            <p class="statement">Een vraag, opdracht of gewoon kennismaken? Ik reageer meestal binnen een paar dagen.</p>
+            <ul class="contact-links" id="contact-links">
+              <li><a href="#contact-form" data-contact-email>Gebruik het formulier hiernaast</a></li>
+            </ul>
+          </div>
+          <form class="contact-form" id="contact-form" novalidate>
+            <div class="field">
+              <label for="naam">Naam</label>
+              <input id="naam" name="naam" type="text" autocomplete="name" required placeholder="Je naam">
+            </div>
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input id="email" name="email" type="email" autocomplete="email" required placeholder="naam@voorbeeld.nl">
+            </div>
+            <div class="field field--full">
+              <label for="onderwerp">Onderwerp</label>
+              <input id="onderwerp" name="onderwerp" type="text" required placeholder="Waar gaat het over?">
+            </div>
+            <div class="field field--full">
+              <label for="bericht">Bericht</label>
+              <textarea id="bericht" name="bericht" rows="6" required placeholder="Vertel kort wat je zoekt"></textarea>
+            </div>
+            <div class="form-footer field--full">
+              <p class="form-status" id="form-status" role="status">Je gegevens worden alleen gebruikt om te reageren.</p>
+              <button class="button button--solid" type="submit">
+                Verstuur bericht
+                <svg class="icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>© <span id="year">2026</span> Stan Dragt</span>
+      <span>Breda, Nederland</span>
+    </div>
+  </footer>
+
+  <dialog class="lightbox" id="lightbox" aria-labelledby="lightbox-title">
+    <div class="lightbox-inner">
+      <div class="lightbox-head">
+        <div>
+          <h3 class="lightbox-title" id="lightbox-title">Project</h3>
+          <p class="lightbox-meta" id="lightbox-meta"></p>
+        </div>
+        <div class="lightbox-actions">
+          <span class="counter" id="lightbox-counter">01 / 06</span>
+          <button class="icon-button icon-button--dark" type="button" id="lightbox-close" aria-label="Sluiten">
+            <svg class="icon" width="18" height="18" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="lightbox-body">
+        <button class="icon-button icon-button--dark lightbox-nav" type="button" id="lightbox-prev" aria-label="Vorig project">
+          <svg class="icon" width="20" height="20" viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        </button>
+        <div class="lightbox-scroll" id="lightbox-scroll" tabindex="0">
+          <img id="lightbox-image" src="" alt="">
+        </div>
+        <button class="icon-button icon-button--dark lightbox-nav" type="button" id="lightbox-next" aria-label="Volgend project">
+          <svg class="icon" width="20" height="20" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </button>
+      </div>
+      <p class="lightbox-description" id="lightbox-description"></p>
+    </div>
+  </dialog>
+
+  <script src="script.js?v=10" defer></script>
+</body>
+</html>

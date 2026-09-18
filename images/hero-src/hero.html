@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; }
+  body { width: 1600px; height: 1200px; overflow: hidden; background: #ffffff; font-family: system-ui, sans-serif; }
+  .stage { position: absolute; inset: 0; perspective: 3000px; perspective-origin: 50% 45%; }
+  .deck {
+    position: absolute; left: 50%; top: 50%;
+    width: 3000px; height: 1900px;
+    margin-left: -1500px; margin-top: -950px;
+    display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(4, 1fr);
+    gap: 16px;
+    transform: rotateX(20deg) rotateY(-14deg) rotateZ(7deg) scale(1.0);
+    transform-style: preserve-3d;
+  }
+  .win {
+    position: relative; background: #ffffff; border-radius: 14px; overflow: hidden;
+    border: 1px solid #e1e4ea;
+    display: flex; flex-direction: column;
+  }
+  .win:nth-child(3n+2) { transform: translateZ(50px); }
+  .win:nth-child(4n+3) { transform: translateZ(28px); }
+  .win:nth-child(5n) { transform: translateZ(70px); }
+  .bar { height: 30px; background: #f1f2f5; border-bottom: 1px solid #e1e4ea; display: flex; align-items: center; gap: 10px; padding: 0 16px; flex-shrink: 0; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; background: #c9cdd6; }
+  .dot.accent { background: #2f5bff; }
+  .url { margin-left: 12px; height: 16px; flex-grow: 1; border-radius: 8px; background: #e6e8ee; }
+  .win img { width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; flex-grow: 1; min-height: 0; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="deck">
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/steamdeck.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/kabelmanagement.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/wijkraad.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/xbox.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/projectinrichting.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/quickscan.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/xbox.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/steamdeck.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/kabelmanagement.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/wijkraad.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/projectinrichting.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/quickscan.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/wijkraad.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/steamdeck.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/xbox.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/kabelmanagement.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/quickscan.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/projectinrichting.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/steamdeck.jpg" alt=""></div>
+      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/wijkraad.jpg" alt=""></div>
+    </div>
+  </div>
+</body>
+</html>

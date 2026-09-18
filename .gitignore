@@ -1,0 +1,6 @@
+# Testuitvoer van de browsertests
+.playwright-mcp/
+
+# Systeembestanden
+Thumbs.db
+.DS_Store
