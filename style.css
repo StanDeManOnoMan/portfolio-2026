@@ -152,6 +152,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: var(--white); overflow: hidden;
   clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%);
 }
+.hero-visual-inner { width: 100%; height: 100%; }
 .hero-visual img { width: 100%; height: 100%; object-fit: cover; }
 
 /* Secties --------------------------------------------------------------- */
@@ -385,10 +386,19 @@ ul { margin: 0; padding: 0; list-style: none; }
 .js .skills.is-visible .skill:nth-child(3) .bar-fill { transition-delay: 0.2s; }
 .js .skills.is-visible .skill:nth-child(4) .bar-fill { transition-delay: 0.3s; }
 
-/* 11: parallax op de collage. Het beeld is iets groter dan het kader zodat
-   het kan verschuiven zonder randen te tonen. */
-.js .hero-visual img { will-change: transform; }
-.js .hero-visual.has-parallax img { transform: translateY(calc(var(--parallax, 0px) - 8%)) scale(1.25); }
+/* 11: parallax op de collage. De binnenlaag is iets groter dan het kader zodat
+   hij kan verschuiven zonder randen te tonen. */
+.js .hero-visual-inner { will-change: transform; }
+.js .hero-visual.has-parallax .hero-visual-inner { transform: translateY(calc(var(--parallax, 0px) - 8%)) scale(1.25); }
+
+/* Langzaam drijven: de collage zelf beweegt heel traag diagonaal en zoomt een
+   fractie in en uit. De verschuiving blijft altijd kleiner dan de extra zoom,
+   zodat er nooit een rand zichtbaar wordt. */
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1.02); }
+  to { transform: translate(-1.8%, -1.2%) scale(1.08); }
+}
+.js .hero-visual img { animation: drift 40s ease-in-out infinite alternate; will-change: transform; }
 
 /* Direct tonen, zonder overgang: voor onderdelen die al boven het scherm liggen. */
 .js .reveal--instant, .js .reveal--instant .reveal, .js .reveal--instant .bar-fill { transition: none !important; }
@@ -410,5 +420,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
   .js .bar-fill { width: var(--value, 0%); transition: none; }
   .js .over { background: var(--tint); transition: none; }
-  .js .hero-visual.has-parallax img { transform: none; }
+  .js .hero-visual.has-parallax .hero-visual-inner { transform: none; }
+  .js .hero-visual img { animation: none; }
 }
