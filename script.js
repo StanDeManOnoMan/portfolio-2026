@@ -411,7 +411,7 @@ function initLightbox() {
   // van de aangeklikte kaart en groeit naar zijn eigen plek (FLIP); bij het
   // sluiten krimpt het weer terug. De rest van de lightbox fadet mee (CSS).
   const GROW_MS = 700;
-  const SHRINK_MS = 500;
+  const SHRINK_MS = 700;
   let origin = null;       // de kaart waaruit de lightbox geopend is
   let closing = false;
 
@@ -458,16 +458,18 @@ function initLightbox() {
   function shrinkToOrigin(done) {
     const target = origin && document.contains(origin) ? transformTo(origin.getBoundingClientRect()) : null;
     dialog.classList.add('is-closing');
-    scroller.style.transition = `transform ${SHRINK_MS}ms cubic-bezier(0.4, 0, 0.6, 1), opacity ${SHRINK_MS}ms ease-in`;
+    // Krimpen met een zachte uitloop; het vervagen begint traag en is aan het
+    // eind compleet, zodat het kader niet zichtbaar "wegknipt".
+    scroller.style.transition = `transform ${SHRINK_MS}ms cubic-bezier(0.2, 0.7, 0.2, 1), opacity ${SHRINK_MS}ms cubic-bezier(0.7, 0, 0.9, 0.5)`;
     if (target) {
       scroller.style.transformOrigin = 'top left';
       scroller.style.transform = target;
     } else {
-      // Kaart niet meer in beeld (bijvoorbeeld na filteren): dan gewoon krimpen en vervagen.
+      // Kaart niet meer in beeld (bijvoorbeeld door de lopende carrousel): dan in het midden krimpen.
       scroller.style.transformOrigin = 'center';
       scroller.style.transform = 'scale(0.92)';
-      scroller.style.opacity = '0';
     }
+    scroller.style.opacity = '0';
     setTimeout(done, SHRINK_MS);
   }
 

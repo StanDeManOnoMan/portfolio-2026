@@ -537,10 +537,10 @@ ul { margin: 0; padding: 0; list-style: none; }
   to { opacity: 0; }
 }
 .js .lightbox[open]::backdrop { animation: fade-in 0.5s ease-out; }
-.js .lightbox.is-closing::backdrop { animation: fade-out 0.5s ease-in forwards; }
+.js .lightbox.is-closing::backdrop { animation: fade-out 0.7s ease-in-out forwards; }
 .js .lightbox-head, .js .lightbox-foot, .js .lightbox-nav { transition: opacity 0.35s ease-out 0.4s; }
 .js .lightbox.is-opening .lightbox-head, .js .lightbox.is-opening .lightbox-foot, .js .lightbox.is-opening .lightbox-nav { opacity: 0; transition: none; }
-.js .lightbox.is-closing .lightbox-head, .js .lightbox.is-closing .lightbox-foot, .js .lightbox.is-closing .lightbox-nav { opacity: 0; transition: opacity 0.25s ease-in; }
+.js .lightbox.is-closing .lightbox-head, .js .lightbox.is-closing .lightbox-foot, .js .lightbox.is-closing .lightbox-nav { opacity: 0; transition: opacity 0.35s ease-out; }
 
 /* Direct tonen, zonder overgang: voor onderdelen die al boven het scherm liggen. */
 .js .reveal--instant, .js .reveal--instant .reveal, .js .reveal--instant .bar-fill { transition: none !important; }
