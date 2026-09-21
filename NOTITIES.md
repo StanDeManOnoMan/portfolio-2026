@@ -121,7 +121,7 @@ Koppen: Bricolage Grotesque. Tekst: Instrument Sans. Beide via Google Fonts in `
 
 - Hero-intro, infaden per sectie, vullende balken en parallax staan in `style.css` onder
   "Animaties" en in `script.js` bij `initReveal` en `initParallax`.
-- De Over-sectie kleurt in bij ongeveer 40% in beeld, de inhoud verschijnt bij 80%.
-  Percentages en snelheden: `script.js` (`once(0.4, …)`, `once(0.8, …)`) en `style.css`
+- De Over-sectie kleurt in bij ongeveer 25% in beeld, de inhoud verschijnt bij 50%.
+  Percentages en snelheden: `script.js` (`once(0.25, …)`, `once(0.5, …)`) en `style.css`
   (`.js .over`, `.js .over .reveal.is-visible`).
 - Alles staat uit voor bezoekers met "minder beweging" in hun systeeminstellingen.

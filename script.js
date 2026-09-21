@@ -587,10 +587,10 @@ function initReveal() {
       io.observe(over);
     }
 
-    // Achtergrond: al bij ongeveer 40 procent in beeld.
-    once(0.4, () => over.classList.add('is-visible'));
-    // Foto en tekst: pas bij ongeveer 80 procent in beeld.
-    once(0.8, () => parts.forEach((part) => part.classList.add('is-visible')));
+    // Achtergrond: al bij ongeveer 25 procent in beeld.
+    once(0.25, () => over.classList.add('is-visible'));
+    // Foto en tekst: bij ongeveer 50 procent in beeld.
+    once(0.5, () => parts.forEach((part) => part.classList.add('is-visible')));
   }
 }
 
