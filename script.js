@@ -39,6 +39,8 @@ const CATEGORY_LABELS = {
 //   thumb       screenshot van de bovenkant, 1280 breed (kaart)
 //   thumbSmall  dezelfde screenshot op 640 breed, voor telefoons. Mag ontbreken.
 //   full        screenshot van de hele pagina (lightbox)
+//   pages       optioneel, voor een site met meerdere pagina's: lijst van
+//               { label, full }. De lightbox krijgt dan knopjes per pagina.
 //   category    sleutel uit CATEGORY_LABELS
 //   url         live adres van de pagina. Leeg = geen "Bekijk live"-knop in de lightbox.
 
@@ -79,10 +81,17 @@ const PROJECTS = [
   {
     title: 'Wijkraad Heusdenhout',
     meta: 'Website · schoolopdracht · 2025',
-    description: 'Website voor een wijkraad met home, nieuws, over ons, meldpunt en contact. Eigen structuur en navigatie over vijf pagina’s.',
+    description: 'Website voor een wijkraad met vijf pagina’s: home, nieuws, over ons, meldpunt en contact. Eigen structuur en navigatie, met een nieuwsoverzicht met filters en een meldformulier in stappen. Bekijk de pagina’s via de knopjes hierboven.',
     thumb: 'images/projects/wijkraad.jpg',
     thumbSmall: 'images/projects/wijkraad-640.jpg',
     full: 'images/projects/wijkraad-full.jpg',
+    pages: [
+      { label: 'Home', full: 'images/projects/wijkraad-full.jpg' },
+      { label: 'Nieuws', full: 'images/projects/wijkraad-nieuws-full.jpg' },
+      { label: 'Over ons', full: 'images/projects/wijkraad-overons-full.jpg' },
+      { label: 'Meldpunt', full: 'images/projects/wijkraad-meldpunt-full.jpg' },
+      { label: 'Contact', full: 'images/projects/wijkraad-contact-full.jpg' }
+    ],
     alt: 'Homepagina van de website voor Wijkraad Heusdenhout',
     category: 'school',
     url: ''
@@ -106,6 +115,28 @@ const PROJECTS = [
     thumbSmall: 'images/projects/xbox-640.jpg',
     full: 'images/projects/xbox-full.jpg',
     alt: 'Xbox controller productpagina',
+    category: 'school',
+    url: ''
+  },
+  {
+    title: 'Dynamisch formulier',
+    meta: 'JavaScript · schoolopdracht · 2025',
+    description: 'Formulier dat zich aanpast aan je keuze: persoonlijk, bedrijf of offerte. Velden verschijnen pas als ze nodig zijn en de verzendknop werkt pas als alles is ingevuld. Gebouwd met JavaScript, zonder bibliotheken.',
+    thumb: 'images/projects/formulier.jpg',
+    thumbSmall: 'images/projects/formulier-640.jpg',
+    full: 'images/projects/formulier-full.jpg',
+    alt: 'Dynamisch formulier met keuze tussen persoonlijk, bedrijf en offerte',
+    category: 'school',
+    url: ''
+  },
+  {
+    title: 'Flyer studentenreisproduct',
+    meta: 'Flyer · print · schoolopdracht · 2025',
+    description: 'Voor- en achterkant van een flyer over het studentenreisproduct van DUO: een kop met foto, een stappenplan met iconen, tips en een QR-code. Schoolopdracht, niet gemaakt in opdracht van DUO.',
+    thumb: 'images/projects/duo-flyer.jpg',
+    thumbSmall: 'images/projects/duo-flyer-640.jpg',
+    full: 'images/projects/duo-flyer-full.jpg',
+    alt: 'Flyer over het studentenreisproduct van DUO, voor- en achterkant naast elkaar',
     category: 'school',
     url: ''
   }
@@ -386,8 +417,33 @@ function initLightbox() {
   const image = document.getElementById('lightbox-image');
   const scroller = document.getElementById('lightbox-scroll');
   const live = document.getElementById('lightbox-live');
+  const pagesBar = document.getElementById('lightbox-pages');
   let current = 0;
   let lastTrigger = null;
+
+  // Knopjes voor projecten met meerdere pagina's (veld `pages`).
+  function renderPages(p) {
+    if (!pagesBar) return;
+    pagesBar.innerHTML = '';
+    const pages = Array.isArray(p.pages) && p.pages.length > 1 ? p.pages : null;
+    pagesBar.hidden = !pages;
+    if (!pages) return;
+    pages.forEach((pg, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'filter filter--dark';
+      b.textContent = pg.label;
+      b.setAttribute('aria-pressed', String(i === 0));
+      b.addEventListener('click', () => {
+        pagesBar.querySelectorAll('.filter').forEach((x) => x.setAttribute('aria-pressed', 'false'));
+        b.setAttribute('aria-pressed', 'true');
+        image.src = pg.full;
+        image.alt = `Pagina ${pg.label}: ${p.alt}`;
+        scroller.scrollTop = 0;
+      });
+      pagesBar.appendChild(b);
+    });
+  }
 
   function show(index) {
     const total = activeProjects.length;
@@ -397,7 +453,8 @@ function initLightbox() {
     meta.textContent = `${p.meta} · scroll om de hele pagina te zien`;
     counter.textContent = `${pad(current + 1)} / ${pad(total)}`;
     description.textContent = p.description;
-    image.src = p.full;
+    renderPages(p);
+    image.src = p.pages && p.pages.length ? p.pages[0].full : p.full;
     image.alt = `Volledige pagina: ${p.alt}`;
     scroller.scrollTop = 0;
     // Knop naar de echte pagina, alleen als er een adres is ingevuld.

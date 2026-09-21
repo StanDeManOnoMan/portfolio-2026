@@ -370,6 +370,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 .lightbox-meta { margin: 4px 0 0; font-size: 13px; color: var(--dark-muted); }
 .lightbox-actions { display: flex; align-items: center; gap: 16px; }
 .lightbox-actions .counter, .lightbox .counter { color: var(--dark-muted); }
+.lightbox-pages { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 72px; margin-top: -8px; }
+.filter--dark { border-color: var(--dark-line); color: var(--dark-text); }
+.filter--dark:hover { border-color: var(--on-dark); color: var(--on-dark); }
+.filter--dark[aria-pressed="true"] { background: var(--on-dark); border-color: var(--on-dark); color: var(--dark); }
 .lightbox-body { position: relative; flex: 1 1 auto; min-height: 0; display: flex; align-items: stretch; gap: 20px; }
 .lightbox-nav { width: 52px; height: 52px; align-self: center; flex-shrink: 0; }
 .lightbox-scroll {
@@ -431,6 +435,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   #lightbox-prev { left: 12px; }
   #lightbox-next { right: 12px; }
   .lightbox-foot { padding: 0 60px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .lightbox-pages { padding: 0; margin-top: -4px; }
   .lightbox-description { font-size: 14px; }
   .lightbox-title { font-size: 20px; }
 
@@ -538,9 +543,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .js .lightbox[open]::backdrop { animation: fade-in 0.5s ease-out; }
 .js .lightbox.is-closing::backdrop { animation: fade-out 0.7s ease-in-out forwards; }
-.js .lightbox-head, .js .lightbox-foot, .js .lightbox-nav { transition: opacity 0.35s ease-out 0.4s; }
-.js .lightbox.is-opening .lightbox-head, .js .lightbox.is-opening .lightbox-foot, .js .lightbox.is-opening .lightbox-nav { opacity: 0; transition: none; }
-.js .lightbox.is-closing .lightbox-head, .js .lightbox.is-closing .lightbox-foot, .js .lightbox.is-closing .lightbox-nav { opacity: 0; transition: opacity 0.35s ease-out; }
+.js .lightbox-head, .js .lightbox-pages, .js .lightbox-foot, .js .lightbox-nav { transition: opacity 0.35s ease-out 0.4s; }
+.js .lightbox.is-opening .lightbox-head, .js .lightbox.is-opening .lightbox-pages, .js .lightbox.is-opening .lightbox-foot, .js .lightbox.is-opening .lightbox-nav { opacity: 0; transition: none; }
+.js .lightbox.is-closing .lightbox-head, .js .lightbox.is-closing .lightbox-pages, .js .lightbox.is-closing .lightbox-foot, .js .lightbox.is-closing .lightbox-nav { opacity: 0; transition: opacity 0.35s ease-out; }
 
 /* Direct tonen, zonder overgang: voor onderdelen die al boven het scherm liggen. */
 .js .reveal--instant, .js .reveal--instant .reveal, .js .reveal--instant .bar-fill { transition: none !important; }

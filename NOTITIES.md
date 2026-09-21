@@ -67,6 +67,12 @@ meer nodig hebt.
    - volledige pagina (voor de lightbox): `images/projects/naam-full.jpg`
    - optioneel een kleine versie van de bovenkant op 640 breed: `images/projects/naam-640.jpg`
      (veld `thumbSmall`; telefoons laden dan minder). Laat het veld weg als je die niet maakt.
+   Heeft de site meerdere pagina's? Maak dan per pagina een volledige screenshot en zet ze
+   in het veld `pages` (zie Wijkraad Heusdenhout in `script.js`). De lightbox krijgt dan
+   knopjes per pagina.
+   Is het geen website maar bijvoorbeeld een flyer of poster? Exporteer hem als afbeelding
+   (JPG, minstens 1280 breed) en gebruik die als `thumb` en `full`. De flyer voor DUO is zo
+   gedaan (uit de PDF gerenderd).
 2. Voeg in `script.js` een blok toe aan de lijst `PROJECTS` (kopieer een bestaand blok).
    Kies bij `category` een sleutel uit `CATEGORY_LABELS` (`stage`, `school`, `eigen`).
    De filterknoppen boven de carrousel volgen vanzelf: een categorie die niet gebruikt
