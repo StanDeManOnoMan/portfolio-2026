@@ -14,12 +14,30 @@ const CONFIG = {
   // 'https://formspree.io/f/xxxxxxxx'. Leeg = mailto-terugval.
   formEndpoint: 'https://formspree.io/f/mvkggwpz',
 
-  // Extra links onder het e-mailadres, bijvoorbeeld:
-  // { label: 'LinkedIn', href: 'https://www.linkedin.com/in/...' }
-  links: []
+  // Pad naar je cv als PDF, bijvoorbeeld 'cv/stan-dragt-cv.pdf'.
+  // Leeg = de downloadknoppen (hero en contact) blijven verborgen.
+  cv: '',
+
+  // Extra links onder het e-mailadres. Voeg toe wat je hebt.
+  links: [
+    { label: 'GitHub', href: 'https://github.com/StanDeManOnoMan' }
+    // { label: 'LinkedIn', href: 'https://www.linkedin.com/in/...' }
+  ]
 };
 
 /* ---- Projecten -------------------------------------------------------- */
+
+// Filterknoppen boven de carrousel. De sleutel (links) gebruik je bij
+// `category` per project, de tekst (rechts) staat op de knop.
+const CATEGORY_LABELS = {
+  stage: 'Stage',
+  school: 'School',
+  eigen: 'Eigen werk'
+};
+
+// Per project:
+//   category  sleutel uit CATEGORY_LABELS
+//   url       live adres van de pagina. Leeg = geen "Bekijk live"-knop in de lightbox.
 
 const PROJECTS = [
   {
@@ -28,7 +46,9 @@ const PROJECTS = [
     description: 'Dienstpagina met een keuzehulp, een overzicht van alle kabelmanagement-diensten, een kaart van het werkgebied en veelgestelde vragen. Gebouwd tijdens mijn stage bij Ergowerken.',
     thumb: 'images/projects/kabelmanagement.jpg',
     full: 'images/projects/kabelmanagement-full.jpg',
-    alt: 'Kabelmanagement-pagina van Ergowerken'
+    alt: 'Kabelmanagement-pagina van Ergowerken',
+    category: 'stage',
+    url: ''
   },
   {
     title: 'Projectinrichting',
@@ -36,7 +56,9 @@ const PROJECTS = [
     description: 'Tweede dienstpagina in dezelfde huisstijl, met vier situaties waaruit een bezoeker kiest en een knop voor een intake.',
     thumb: 'images/projects/projectinrichting.jpg',
     full: 'images/projects/projectinrichting-full.jpg',
-    alt: 'Projectinrichting-pagina van Ergowerken'
+    alt: 'Projectinrichting-pagina van Ergowerken',
+    category: 'stage',
+    url: ''
   },
   {
     title: 'Quick Scan',
@@ -44,7 +66,9 @@ const PROJECTS = [
     description: 'Pagina voor HR en medewerkers met een gratis DIY quick scan en de optie voor een scan op locatie.',
     thumb: 'images/projects/quickscan.jpg',
     full: 'images/projects/quickscan-full.jpg',
-    alt: 'Quick Scan-pagina van Ergowerken'
+    alt: 'Quick Scan-pagina van Ergowerken',
+    category: 'stage',
+    url: ''
   },
   {
     title: 'Wijkraad Heusdenhout',
@@ -52,7 +76,9 @@ const PROJECTS = [
     description: 'Website voor een wijkraad met home, nieuws, over ons, meldpunt en contact. Eigen structuur en navigatie over vijf pagina’s.',
     thumb: 'images/projects/wijkraad.jpg',
     full: 'images/projects/wijkraad-full.jpg',
-    alt: 'Homepagina van de website voor Wijkraad Heusdenhout'
+    alt: 'Homepagina van de website voor Wijkraad Heusdenhout',
+    category: 'school',
+    url: ''
   },
   {
     title: 'Steam Deck',
@@ -60,7 +86,9 @@ const PROJECTS = [
     description: 'Productpagina met een grote video-hero, specificaties en een bestelknop.',
     thumb: 'images/projects/steamdeck.jpg',
     full: 'images/projects/steamdeck-full.jpg',
-    alt: 'Steam Deck productpagina'
+    alt: 'Steam Deck productpagina',
+    category: 'school',
+    url: ''
   },
   {
     title: 'Xbox controller',
@@ -68,9 +96,14 @@ const PROJECTS = [
     description: 'Productpagina met galerij, technische specificaties en een light/dark-toggle.',
     thumb: 'images/projects/xbox.jpg',
     full: 'images/projects/xbox-full.jpg',
-    alt: 'Xbox controller productpagina'
+    alt: 'Xbox controller productpagina',
+    category: 'school',
+    url: ''
   }
 ];
+
+// De projecten die op dit moment in de carrousel staan (na filteren).
+let activeProjects = PROJECTS.slice();
 
 const pad = (n) => String(n).padStart(2, '0');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -135,7 +168,6 @@ function initCarousel(openLightbox) {
   const nextButton = document.getElementById('carousel-next');
   if (!viewport || !track) return;
 
-  const total = PROJECTS.length;
   const SPEED = 36;            // pixels per seconde
   const SNAP_DURATION = 450;   // ms voor een klik op een pijl
 
@@ -146,34 +178,45 @@ function initCarousel(openLightbox) {
   let snap = null;             // { from, to, start } tijdens een pijl-animatie
   let lastTime = null;
 
+  const total = () => activeProjects.length;
+
   // Kaarten renderen en zo vaak herhalen dat de rij naadloos kan doorlopen.
   function render() {
     track.innerHTML = '';
-    PROJECTS.forEach((p, i) => track.appendChild(buildCard(p, i)));
+    activeProjects.forEach((p, i) => track.appendChild(buildCard(p, i)));
     measure();
     const needed = viewport.clientWidth + cycle;
     let copies = 1;
-    while (copies * cycle < needed && copies < 6) {
-      PROJECTS.forEach((p, i) => track.appendChild(buildCard(p, i)));
+    while (cycle > 0 && copies * cycle < needed && copies < 8) {
+      activeProjects.forEach((p, i) => track.appendChild(buildCard(p, i)));
       copies += 1;
     }
   }
 
   function measure() {
     const first = track.children[0];
-    if (!first) return;
+    if (!first) { step = 0; cycle = 0; return; }
     const gap = parseFloat(getComputedStyle(track).gap) || 0;
     step = first.getBoundingClientRect().width + gap;
-    cycle = step * total;
+    cycle = step * total();
     if (cycle > 0) offset = ((offset % cycle) + cycle) % cycle;
   }
 
   function apply() {
     track.style.transform = `translateX(${-offset}px)`;
     if (counter) {
-      const current = step > 0 ? Math.floor((offset + step / 2) / step) % total : 0;
-      counter.textContent = `${pad(current + 1)} / ${pad(total)}`;
+      const n = total();
+      const current = step > 0 && n > 0 ? Math.floor((offset + step / 2) / step) % n : 0;
+      counter.textContent = `${pad(n ? current + 1 : 0)} / ${pad(n)}`;
     }
+  }
+
+  // Na een filterwissel: opnieuw opbouwen en vooraan beginnen.
+  function refresh() {
+    snap = null;
+    offset = 0;
+    render();
+    apply();
   }
 
   function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
@@ -230,6 +273,46 @@ function initCarousel(openLightbox) {
   render();
   apply();
   requestAnimationFrame(frame);
+
+  return refresh;
+}
+
+/* ---- Filter boven de carrousel --------------------------------------- */
+
+function initFilters(refreshCarousel) {
+  const holder = document.getElementById('filters');
+  if (!holder) return;
+
+  // Categorieën in de volgorde waarin ze in PROJECTS voorkomen.
+  const keys = [];
+  PROJECTS.forEach((p) => {
+    if (p.category && !keys.includes(p.category)) keys.push(p.category);
+  });
+  // Met maar één soort werk heeft filteren geen zin.
+  if (keys.length < 2) { holder.hidden = true; return; }
+
+  const options = [{ key: 'alles', label: 'Alles' }]
+    .concat(keys.map((key) => ({ key, label: CATEGORY_LABELS[key] || key })));
+
+  options.forEach((option, i) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'filter';
+    button.dataset.filter = option.key;
+    button.setAttribute('aria-pressed', String(i === 0));
+    button.textContent = option.label;
+    holder.appendChild(button);
+  });
+
+  holder.addEventListener('click', (event) => {
+    const button = event.target.closest('.filter');
+    if (!button || button.getAttribute('aria-pressed') === 'true') return;
+    holder.querySelectorAll('.filter').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+    button.setAttribute('aria-pressed', 'true');
+    const key = button.dataset.filter;
+    activeProjects = key === 'alles' ? PROJECTS.slice() : PROJECTS.filter((p) => p.category === key);
+    refreshCarousel();
+  });
 }
 
 /* ---- Lightbox --------------------------------------------------------- */
@@ -237,7 +320,7 @@ function initCarousel(openLightbox) {
 function initLightbox() {
   const dialog = document.getElementById('lightbox');
   if (!dialog || typeof dialog.showModal !== 'function') {
-    return (index) => { window.open(PROJECTS[index].full, '_blank'); };
+    return (index) => { window.open(activeProjects[index].full, '_blank'); };
   }
 
   const title = document.getElementById('lightbox-title');
@@ -246,13 +329,14 @@ function initLightbox() {
   const description = document.getElementById('lightbox-description');
   const image = document.getElementById('lightbox-image');
   const scroller = document.getElementById('lightbox-scroll');
-  const total = PROJECTS.length;
+  const live = document.getElementById('lightbox-live');
   let current = 0;
   let lastTrigger = null;
 
   function show(index) {
+    const total = activeProjects.length;
     current = ((index % total) + total) % total;
-    const p = PROJECTS[current];
+    const p = activeProjects[current];
     title.textContent = p.title;
     meta.textContent = `${p.meta} · scroll om de hele pagina te zien`;
     counter.textContent = `${pad(current + 1)} / ${pad(total)}`;
@@ -260,6 +344,11 @@ function initLightbox() {
     image.src = p.full;
     image.alt = `Volledige pagina: ${p.alt}`;
     scroller.scrollTop = 0;
+    // Knop naar de echte pagina, alleen als er een adres is ingevuld.
+    if (live) {
+      live.hidden = !p.url;
+      live.href = p.url || '#';
+    }
   }
 
   function open(index) {
@@ -305,16 +394,29 @@ function initContact() {
     emailLink.href = `mailto:${CONFIG.contactEmail}`;
   }
   if (linkList) {
-    CONFIG.links.forEach((link) => {
+    const extra = CONFIG.links.slice();
+    if (CONFIG.cv) extra.push({ label: 'Download cv (PDF)', href: CONFIG.cv, download: true });
+    extra.forEach((link) => {
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = link.href;
       a.textContent = link.label;
-      a.rel = 'noopener';
-      a.target = '_blank';
+      if (link.download) {
+        a.setAttribute('download', '');
+      } else {
+        a.rel = 'noopener';
+        a.target = '_blank';
+      }
       li.appendChild(a);
       linkList.appendChild(li);
     });
+  }
+
+  // Cv-knop in de hero: alleen tonen als er een bestand is ingesteld.
+  const cvButton = document.querySelector('[data-cv]');
+  if (cvButton && CONFIG.cv) {
+    cvButton.href = CONFIG.cv;
+    cvButton.hidden = false;
   }
 
   function setStatus(text, type) {
@@ -370,7 +472,7 @@ function initReveal() {
   // Alles wat moet infaden: per sectie eerst de kop, dan de inhoud.
   document.querySelectorAll('main .section:not(.over)').forEach((section) => {
     const head = section.querySelector('.section-head');
-    const blocks = section.querySelectorAll('.two-col > *, .carousel, .werk .note');
+    const blocks = section.querySelectorAll('.two-col > *, .filters, .carousel, .werk .note');
     if (head) { head.classList.add('reveal'); }
     blocks.forEach((block, i) => {
       block.classList.add('reveal');
@@ -485,15 +587,41 @@ function initParallax() {
   update();
 }
 
+/* ---- Terug naar boven ------------------------------------------------- */
+
+function initToTop() {
+  const button = document.getElementById('to-top');
+  if (!button) return;
+
+  let ticking = false;
+  function update() {
+    ticking = false;
+    // Verschijnt zodra de hero grotendeels uit beeld is.
+    button.classList.toggle('is-shown', window.scrollY > window.innerHeight * 0.6);
+  }
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }, { passive: true });
+  update();
+
+  button.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+  });
+}
+
 /* ---- Start ------------------------------------------------------------ */
 
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
   const openLightbox = initLightbox();
-  initCarousel(openLightbox);
+  const refreshCarousel = initCarousel(openLightbox);
+  initFilters(refreshCarousel);
   initContact();
   initReveal();
   initParallax();
+  initToTop();
   const year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());
 });

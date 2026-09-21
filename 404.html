@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pagina niet gevonden · Stan Dragt</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#f7f7f8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#12141a" media="(prefers-color-scheme: dark)">
+  <link rel="icon" id="favicon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Deze pagina staat op zichzelf (eigen CSS), zodat hij ook werkt als GitHub
+       Pages hem toont voor een adres in een submap. -->
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f7f8; --ink: #0f1115; --body: #2b2f38; --muted: #5f6470;
+      --line: #dcdfe5; --accent: #2f5bff; --white: #ffffff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color-scheme: dark;
+        --bg: #12141a; --ink: #f1f2f5; --body: #c8ccd5; --muted: #8e939e;
+        --line: #2a2e38; --accent: #6b8cff; --white: #0c0e12;
+      }
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column;
+      font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.5;
+      color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; padding: 22px 64px; }
+    .brand { font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+    main {
+      flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+      gap: 24px; padding: 64px; max-width: 760px;
+    }
+    .eyebrow {
+      margin: 0; display: flex; align-items: center; gap: 16px;
+      font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    h1 {
+      margin: 0; font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-weight: 600;
+      font-size: clamp(36px, 4.2vw, 54px); line-height: 1.05; letter-spacing: -0.03em;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+    p.lead { margin: 0; font-size: 18px; color: var(--body); max-width: 480px; }
+    .button {
+      display: inline-flex; align-items: center; gap: 12px; padding: 14px 22px; border-radius: 999px;
+      border: 1px solid var(--ink); font-size: 15px; font-weight: 500; color: var(--ink);
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .button:hover { background: var(--ink); color: var(--white); }
+    .icon { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    footer { border-top: 1px solid var(--line); padding: 24px 64px; font-size: 13px; color: var(--muted); }
+    @media (max-width: 800px) {
+      .nav, footer { padding-left: 16px; padding-right: 16px; }
+      .nav { padding-top: 14px; padding-bottom: 14px; }
+      main { padding: 40px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav" aria-label="Hoofdmenu">
+      <a class="brand" href="./" data-home>Stan Dragt</a>
+    </nav>
+  </header>
+
+  <main>
+    <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Foutcode 404</p>
+    <h1>Deze pagina <em>bestaat niet</em> (meer).</h1>
+    <p class="lead">Misschien is de link verouderd of zit er een typfout in het adres. Het werk, de vaardigheden en het contactformulier vind je gewoon op de voorpagina.</p>
+    <a class="button" href="./" data-home>
+      Naar de voorpagina
+      <svg class="icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+  </main>
+
+  <footer>© <span id="year">2026</span> Stan Dragt · Breda, Nederland</footer>
+
+  <script>
+    // GitHub Pages toont deze pagina voor elk onbekend adres, ook in submappen.
+    // De eerste map in het adres is de root van de site (op Pages de repo-naam).
+    (function () {
+      var root = '/' + (location.pathname.split('/')[1] || '') + '/';
+      if (root === '//') root = '/';
+      document.querySelectorAll('[data-home]').forEach(function (a) { a.href = root; });
+      var icon = document.getElementById('favicon');
+      if (icon) icon.href = root + 'images/favicon.svg';
+      var year = document.getElementById('year');
+      if (year) year.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+</body>
+</html>

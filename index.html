@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stan Dragt · Allround mediamaker</title>
   <meta name="description" content="Portfolio van Stan Dragt, allround mediamaker in opleiding bij Curio in Breda. Websites en visuals die er goed uitzien en gewoon werken.">
-  <meta name="theme-color" content="#f7f7f8">
+  <meta name="theme-color" content="#f7f7f8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#12141a" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <!-- Deelvoorbeeld (WhatsApp, LinkedIn, X). Verhuist de site naar een eigen domein,
        pas dan de twee volledige URL's hieronder aan. -->
@@ -19,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=21">
+  <link rel="stylesheet" href="style.css?v=22">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -46,17 +47,29 @@
 
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-text">
-        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Portfolio · Allround mediamaker · Breda</p>
+        <!-- Beschikbaarheid. Pas de tekst aan als je situatie verandert, bijvoorbeeld
+             "Beschikbaar voor stage vanaf september 2027 · Breda". De groene bol blijft. -->
+        <p class="eyebrow"><span class="dot dot--status" aria-hidden="true"></span>Nu op stage bij Ergowerken · Breda</p>
         <h1 id="hero-title">Ik maak websites en visuals die er goed uitzien en <em>gewoon werken</em>.</h1>
-        <p class="lead">Allround mediamaker in opleiding bij Curio in Breda. Ik combineer ontwerp met code, en doe dat op dit moment als stagiair bij Ergowerken.</p>
-        <a class="button button--outline" href="#werk">
-          Bekijk het werk
-          <svg class="icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        </a>
+        <p class="lead">Allround mediamaker in opleiding bij Curio in Breda. Ik combineer ontwerp met code en bouw het liefst dingen die echt gebruikt worden.</p>
+        <div class="hero-actions">
+          <a class="button button--outline" href="#werk">
+            Bekijk het werk
+            <svg class="icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+          <!-- Verschijnt zodra CONFIG.cv in script.js is ingevuld. -->
+          <a class="button button--quiet" href="#" data-cv download hidden>
+            Download cv
+            <svg class="icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v8M4 8l4 4 4-4M3 13h10"/></svg>
+          </a>
+        </div>
       </div>
       <div class="hero-visual">
         <div class="hero-visual-inner">
-          <img src="images/hero.jpg?v=3" alt="Collage van websites die Stan Dragt heeft gebouwd, als schuin gekantelde browservensters" width="1600" height="1200" fetchpriority="high">
+          <picture>
+            <source srcset="images/hero-dark.jpg?v=1" media="(prefers-color-scheme: dark)">
+            <img src="images/hero.jpg?v=3" alt="Collage van websites die Stan Dragt heeft gebouwd, als schuin gekantelde browservensters" width="1600" height="1200" fetchpriority="high">
+          </picture>
         </div>
       </div>
     </section>
@@ -101,6 +114,7 @@
             </button>
           </div>
         </div>
+        <div class="filters" id="filters" role="group" aria-label="Filter op soort werk"></div>
         <div class="carousel" id="carousel">
           <ul class="track" id="carousel-track" aria-label="Projecten"></ul>
         </div>
@@ -218,10 +232,20 @@
           <svg class="icon" width="20" height="20" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </button>
       </div>
-      <p class="lightbox-description" id="lightbox-description"></p>
+      <div class="lightbox-foot">
+        <p class="lightbox-description" id="lightbox-description"></p>
+        <a class="button button--small button--on-dark lightbox-live" id="lightbox-live" href="#" target="_blank" rel="noopener" hidden>
+          Bekijk live
+          <svg class="icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3H3v10h10v-3M9 3h4v4M13 3L7 9"/></svg>
+        </a>
+      </div>
     </div>
   </dialog>
 
-  <script src="script.js?v=13" defer></script>
+  <button class="icon-button icon-button--solid to-top" type="button" id="to-top" aria-label="Terug naar boven">
+    <svg class="icon" width="18" height="18" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13V3M4 7l4-4 4 4"/></svg>
+  </button>
+
+  <script src="script.js?v=14" defer></script>
 </body>
 </html>

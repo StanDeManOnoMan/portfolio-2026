@@ -31,7 +31,19 @@ meer nodig hebt.
    - `formEndpoint`: het Formspree-formulier staat ingevuld. Berichten komen direct in je
      Gmail. Beheer (limiet, spamfilter, ontvanger wijzigen): https://formspree.io, inloggen
      met standragt68@gmail.com. Gratis tot 50 berichten per maand.
-   - `links`: nog leeg. Bijvoorbeeld `{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/...' }`.
+   - `links`: GitHub staat erin. LinkedIn toevoegen: haal de `//` weg voor de regel en vul
+     je adres in.
+   - `cv`: pad naar je cv als PDF, bijvoorbeeld `'cv/stan-dragt-cv.pdf'`. Zet het bestand in
+     een map `cv/` in deze map. Zodra dit ingevuld is, verschijnen de knop "Download cv" in
+     de hero en de link in de contactsectie vanzelf.
+
+1b. **Live-links bij projecten** · `script.js`, lijst `PROJECTS`, veld `url`
+   Vul het adres van de echte pagina in (bijvoorbeeld de Ergowerken-pagina's). Dan krijgt de
+   lightbox een knop "Bekijk live". Leeg = geen knop.
+
+1c. **Beschikbaarheid in de hero** · `index.html`, de regel met `dot--status`
+   Staat nu op "Nu op stage bij Ergowerken · Breda". Pas de tekst aan als je situatie
+   verandert, bijvoorbeeld "Beschikbaar voor stage vanaf september 2027 · Breda".
 
 2. **Deelvoorbeeld** · `index.html`, in de `<head>`
    Na publicatie: vervang `images/hero.jpg` in de `og:image`-regel door de volledige URL,
@@ -54,8 +66,27 @@ meer nodig hebt.
    - bovenkant (voor de kaart): `images/projects/naam.jpg`
    - volledige pagina (voor de lightbox): `images/projects/naam-full.jpg`
 2. Voeg in `script.js` een blok toe aan de lijst `PROJECTS` (kopieer een bestaand blok).
+   Kies bij `category` een sleutel uit `CATEGORY_LABELS` (`stage`, `school`, `eigen`).
+   De filterknoppen boven de carrousel volgen vanzelf: een categorie die niet gebruikt
+   wordt, krijgt geen knop.
 3. Wil je het project ook in de hero-collage? Voeg het toe in `images/hero-src/hero.html`
    en maak een nieuwe screenshot van dat bestand op 1600 × 1200 als `images/hero.jpg`.
+   Er is ook een donkere versie, `images/hero-dark.jpg`, voor bezoekers met donkere modus:
+   dezelfde screenshot, maar met de achtergrond op `#0c0e12` en de randen op `#2a2e38`.
+
+## Donkere modus
+
+De site volgt de systeeminstelling van de bezoeker (licht of donker). Alle kleuren staan
+als variabelen bovenin `style.css`: eerst de lichte set in `:root`, daaronder de donkere
+set in `@media (prefers-color-scheme: dark)`. Wil je een kleur aanpassen, doe dat dan in
+beide sets. Testen kan in Chrome via DevTools: Rendering, "Emulate CSS prefers-color-scheme".
+
+## Overige onderdelen
+
+- **404.html**: eigen foutpagina in dezelfde stijl. GitHub Pages pakt hem automatisch op.
+  Hij heeft zijn eigen CSS (bewust, zodat hij ook in submappen werkt).
+- **Terug naar boven**: de ronde knop rechtsonder, verschijnt na ongeveer een halve
+  schermhoogte scrollen. Code: `initToTop` in `script.js`, stijl `.to-top` in `style.css`.
 
 ## Cache
 
