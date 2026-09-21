@@ -77,9 +77,11 @@ meer nodig hebt.
    Kies bij `category` een sleutel uit `CATEGORY_LABELS` (`stage`, `school`, `eigen`).
    De filterknoppen boven de carrousel volgen vanzelf: een categorie die niet gebruikt
    wordt, krijgt geen knop.
-3. Wil je het project ook in de hero-collage? Voeg het toe in `images/hero-src/hero.html`
-   (raster van 6 × 5 vensters) en maak een nieuwe screenshot van dat bestand op
-   1600 × 1200 als `images/hero.jpg`.
+3. Wil je het project ook in de hero-collage? Voeg de bestandsnaam toe aan de lijst
+   `projects` onderaan `images/hero-src/hero.html` (raster van 7 × 6 vensters, wordt door
+   het scriptje gevuld) en maak een nieuwe screenshot van dat bestand op 1600 × 1200 als
+   `images/hero.jpg`. Doe hetzelfde met de donkere achtergrond voor `hero-dark.jpg`, en
+   maak van beide een 800 × 600-versie.
    Er is ook een donkere versie, `images/hero-dark.jpg`, voor bezoekers met donkere modus:
    dezelfde screenshot, maar met de achtergrond op `#0c0e12` en de randen op `#2a2e38`.
 
