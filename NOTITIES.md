@@ -38,7 +38,12 @@ meer nodig hebt.
    bijvoorbeeld `https://jouwdomein.nl/images/hero.jpg`. Anders tonen WhatsApp en LinkedIn
    geen afbeelding bij je link.
 
-3. **Teksten controleren**
+3. **Foto in de Over-sectie** · `index.html`, blok `portrait`
+   Staat nu tijdelijk op "Foto volgt". Zet je nieuwe foto als `images/portret.jpg`
+   (verhouding 660 × 780, staand) en zet de `<img>`-regel terug die in het commentaar
+   in `index.html` staat. Het oude bestand `portret.jpg` staat nog in `images/`.
+
+4. **Teksten controleren**
    - Hero-intro en Over-tekst: `index.html`.
    - Tekst bij vaardigheden: `index.html`, klasse `skills-intro`.
    - Projecttoelichtingen: `script.js`, lijst `PROJECTS`, veld `description`.
