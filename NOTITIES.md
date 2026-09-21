@@ -41,7 +41,7 @@ meer nodig hebt.
    Vul het adres van de echte pagina in (bijvoorbeeld de Ergowerken-pagina's). Dan krijgt de
    lightbox een knop "Bekijk live". Leeg = geen knop.
 
-1c. **Beschikbaarheid in de hero** · `index.html`, de regel met `dot--status`
+1c. **Beschikbaarheid in de hero** · `index.html`, de eerste regel in `hero-text`
    Staat nu op "Nu op stage bij Ergowerken · Breda". Pas de tekst aan als je situatie
    verandert, bijvoorbeeld "Beschikbaar voor stage vanaf september 2027 · Breda".
 

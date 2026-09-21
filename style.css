@@ -18,7 +18,6 @@
   --accent: #2f5bff;
   --white: #ffffff;            /* lichtste vlak: hero, formuliervelden, tekst op donkere knoppen */
   --header-bg: rgba(247, 247, 248, 0.9);
-  --status: #1fa463;           /* groene bol bij beschikbaarheid */
   --success: #1d7a4a;
   --error: #c0392b;
 
@@ -55,7 +54,6 @@
   --accent: #6b8cff;
   --white: #0c0e12;
   --header-bg: rgba(18, 20, 26, 0.88);
-  --status: #3ccf82;
   --success: #4fc98a;
   --error: #ef6b5e;
 }
@@ -114,7 +112,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .counter { white-space: nowrap; }
 .eyebrow { display: flex; align-items: center; gap: 16px; }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; flex-shrink: 0; }
-.dot--status { background: var(--status); box-shadow: 0 0 0 4px color-mix(in srgb, var(--status) 18%, transparent); }
 .note { margin: 0; font-size: 13px; color: var(--muted); }
 
 /* Knoppen --------------------------------------------------------------- */
