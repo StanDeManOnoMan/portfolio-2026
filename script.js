@@ -609,9 +609,17 @@ function initTheme() {
 
   apply(root.dataset.theme || (system.matches ? 'dark' : 'light'));
 
+  // Wisselen zonder dat kleurovergangen (zoals de trage achtergrond van de
+  // Over-sectie) meelopen: overgangen twee frames uitzetten en dan weer aan.
+  function switchTo(theme) {
+    root.classList.add('theme-switching');
+    apply(theme);
+    requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove('theme-switching')));
+  }
+
   button?.addEventListener('click', () => {
     const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-    apply(next);
+    switchTo(next);
     try { localStorage.setItem('theme', next); } catch (e) { /* privémodus: niet onthouden */ }
   });
 
@@ -619,7 +627,7 @@ function initTheme() {
   system.addEventListener('change', (event) => {
     let saved = null;
     try { saved = localStorage.getItem('theme'); } catch (e) {}
-    if (!saved) apply(event.matches ? 'dark' : 'light');
+    if (!saved) switchTo(event.matches ? 'dark' : 'light');
   });
 }
 
