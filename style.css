@@ -517,14 +517,14 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* 11: parallax op de collage. De binnenlaag is iets groter dan het kader zodat
    hij kan verschuiven zonder randen te tonen. */
 .js .hero-visual-inner { will-change: transform; }
-.js .hero-visual.has-parallax .hero-visual-inner { transform: translateY(calc(var(--parallax, 0px) - 8%)) scale(1.25); }
+.js .hero-visual.has-parallax .hero-visual-inner { transform: translateY(calc(var(--parallax, 0px) - 5%)) scale(1.15); }
 
 /* Langzaam drijven: de collage zelf beweegt heel traag diagonaal en zoomt een
    fractie in en uit. De verschuiving blijft altijd kleiner dan de extra zoom,
    zodat er nooit een rand zichtbaar wordt. */
 @keyframes drift {
   from { transform: translate(0, 0) scale(var(--drift-scale, 1.03)); }
-  to { transform: translate(var(--drift-x, -4%), var(--drift-y, -3%)) scale(var(--drift-scale, 1.03)); }
+  to { transform: translate(var(--drift-x, -3%), var(--drift-y, -2%)) scale(var(--drift-scale, 1.03)); }
 }
 .js .hero-visual img { animation: drift 6s ease-in-out infinite alternate; will-change: transform; }
 /* Op telefoon en tablet is er geen parallax-laag die extra ruimte geeft. De

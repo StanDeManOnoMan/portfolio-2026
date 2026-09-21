@@ -777,8 +777,9 @@ function initParallax() {
     if (rect.bottom < 0) return;
     visual.classList.add('has-parallax');
     // Het beeld beweegt op ongeveer een vijfde van de scrollsnelheid mee,
-    // begrensd zodat er geen rand van het kader zichtbaar wordt.
-    const shift = Math.min(window.scrollY * 0.18, rect.height * 0.16);
+    // begrensd zodat er geen rand van het kader zichtbaar wordt (de laag is
+    // 15% ingezoomd, dus maximaal 10% verschuiving vanaf -5%).
+    const shift = Math.min(window.scrollY * 0.18, rect.height * 0.10);
     visual.style.setProperty('--parallax', `${shift}px`);
   }
 
