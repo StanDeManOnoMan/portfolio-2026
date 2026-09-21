@@ -78,7 +78,8 @@ meer nodig hebt.
    De filterknoppen boven de carrousel volgen vanzelf: een categorie die niet gebruikt
    wordt, krijgt geen knop.
 3. Wil je het project ook in de hero-collage? Voeg het toe in `images/hero-src/hero.html`
-   en maak een nieuwe screenshot van dat bestand op 1600 × 1200 als `images/hero.jpg`.
+   (raster van 6 × 5 vensters) en maak een nieuwe screenshot van dat bestand op
+   1600 × 1200 als `images/hero.jpg`.
    Er is ook een donkere versie, `images/hero-dark.jpg`, voor bezoekers met donkere modus:
    dezelfde screenshot, maar met de achtergrond op `#0c0e12` en de randen op `#2a2e38`.
 
