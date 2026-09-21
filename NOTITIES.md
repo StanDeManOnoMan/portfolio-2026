@@ -98,6 +98,14 @@ Wil je terug naar "alleen systeem volgen": verwijder de knop uit `index.html`.
 Achter `style.css`, `script.js` en de afbeeldingen in `index.html` staat `?v=…`.
 Hoog dat nummer op na een wijziging, dan laadt de browser van bezoekers de nieuwe versie.
 
+## Schermformaten
+
+- De inhoud is maximaal 1440 pixels breed (`--max` bovenin `style.css`) en staat op grotere
+  schermen gecentreerd. De hero-collage loopt wel door tot de rechterrand.
+- Omslagpunten: tot 640 pixels telefoon (één kaart), tot 800 pixels tablet staand (twee
+  kaarten, menu achter de knop, secties onder elkaar), tot 1100 pixels kleine laptop (twee
+  kaarten, smallere kantlijn), daarboven de volledige weergave met drie kaarten.
+
 ## Kleuren en lettertypes
 
 Alles staat bovenin `style.css` in `:root`. Accentkleur: `--accent` (#2f5bff).

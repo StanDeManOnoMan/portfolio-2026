@@ -32,6 +32,7 @@
   --font-body: 'Instrument Sans', system-ui, sans-serif;
 
   --gutter: 64px;
+  --max: 1440px;               /* maximale breedte van de inhoud; daarboven gecentreerd */
   --radius: 4px;
   --card-gap: 32px;
   --cards-visible: 3;
@@ -99,7 +100,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-.container { padding-left: var(--gutter); padding-right: var(--gutter); }
+.container { max-width: var(--max); margin-left: auto; margin-right: auto; padding-left: var(--gutter); padding-right: var(--gutter); }
 
 .icon { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
@@ -168,6 +169,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .nav {
   display: flex; justify-content: space-between; align-items: center;
+  max-width: var(--max); margin: 0 auto;
   padding: 22px var(--gutter);
 }
 .brand { font-family: var(--font-display); font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
@@ -199,20 +201,31 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* Hero ------------------------------------------------------------------ */
 
+/* Vier kolommen: kantlijn | tekst | beeld | kantlijn. De twee middenkolommen
+   zijn samen nooit breder dan --max, zodat de tekst op een groot scherm op
+   dezelfde plek staat als de rest van de inhoud. De collage loopt wel door
+   tot de rechterrand van het scherm. */
 .hero {
   background: var(--white);
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  display: grid;
+  grid-template-columns:
+    minmax(var(--gutter), 1fr)
+    minmax(0, calc(var(--max) / 2 - var(--gutter)))
+    minmax(0, calc(var(--max) / 2 - var(--gutter)))
+    minmax(var(--gutter), 1fr);
   min-height: calc(100vh - var(--header-h, 89px));
   min-height: calc(100svh - var(--header-h, 89px));
 }
 .hero-text {
-  padding: 64px 48px 64px var(--gutter);
+  grid-column: 2;
+  padding: 64px 48px 64px 0;
   display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 24px;
 }
 .hero h1 { font-size: clamp(36px, 4.2vw, 54px); font-weight: 600; line-height: 1.05; letter-spacing: -0.03em; }
 .hero h1 em { font-style: normal; color: var(--accent); }
 .lead { margin: 0; font-size: 18px; color: var(--body); max-width: 480px; }
 .hero-visual {
+  grid-column: 3 / -1;
   background: var(--white); overflow: hidden;
   clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%);
 }
@@ -369,7 +382,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 @media (max-width: 800px) {
-  :root { --gutter: 16px; --cards-visible: 1.15; --card-gap: 20px; }
+  :root { --gutter: 16px; }
 
   .nav { padding: 14px var(--gutter); }
   .nav-toggle { display: flex; }
@@ -382,8 +395,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   .nav-links a { display: block; padding: 12px 0; }
 
   .hero { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); }
-  .hero-text { padding: 40px var(--gutter) 36px; }
-  .hero-visual { min-height: 260px; clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%); }
+  .hero-text { grid-column: 1; padding: 40px var(--gutter) 36px; }
+  .hero-visual { grid-column: 1; min-height: 260px; clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%); }
 
   .section { padding: 40px 0 48px; }
   .section-head { flex-wrap: wrap; margin-bottom: 24px; }
@@ -412,6 +425,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   .lightbox-title { font-size: 20px; }
 
   .to-top { right: 16px; bottom: 16px; }
+}
+
+/* Telefoon: één kaart met een randje van de volgende in beeld. Op een tablet
+   (641 tot 800 pixels) blijven het er twee, net als op een kleine laptop. */
+@media (max-width: 640px) {
+  :root { --cards-visible: 1.15; --card-gap: 20px; }
 }
 
 /* Animaties ------------------------------------------------------------- */
