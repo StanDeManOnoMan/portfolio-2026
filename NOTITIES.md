@@ -105,6 +105,9 @@ Hoog dat nummer op na een wijziging, dan laadt de browser van bezoekers de nieuw
 
 - De inhoud is maximaal 1440 pixels breed (`--max` bovenin `style.css`) en staat op grotere
   schermen gecentreerd. De hero-collage loopt wel door tot de rechterrand.
+- Op de telefoon (tot 640 pixels) zijn de letters kleiner (onderaan `style.css`, blok
+  `@media (max-width: 640px)`) en heeft de hero-collage zijn echte 4:3-verhouding, zodat
+  tekst en beeld samen op het eerste scherm passen.
 - Omslagpunten: tot 640 pixels telefoon (één kaart), tot 800 pixels tablet staand (twee
   kaarten, menu achter de knop, secties onder elkaar), tot 1100 pixels kleine laptop (twee
   kaarten, smallere kantlijn), daarboven de volledige weergave met drie kaarten.

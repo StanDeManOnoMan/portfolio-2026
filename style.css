@@ -397,9 +397,11 @@ ul { margin: 0; padding: 0; list-style: none; }
   .nav-links.is-open { display: flex; }
   .nav-links a { display: block; padding: 12px 0; }
 
-  .hero { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); }
+  /* Tekst boven, collage eronder in zijn echte verhouding (4:3), zodat het
+     hele beeld te zien is in plaats van een uitsnede. */
+  .hero { min-height: 0; grid-template-columns: 1fr; grid-template-rows: auto auto; }
   .hero-text { grid-column: 1; padding: 40px var(--gutter) 36px; }
-  .hero-visual { grid-column: 1; min-height: 260px; clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%); }
+  .hero-visual { grid-column: 1; aspect-ratio: 4 / 3; clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%); }
 
   .section { padding: 40px 0 48px; }
   .section-head { flex-wrap: wrap; margin-bottom: 24px; }
@@ -433,7 +435,23 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* Telefoon: één kaart met een randje van de volgende in beeld. Op een tablet
    (641 tot 800 pixels) blijven het er twee, net als op een kleine laptop. */
 @media (max-width: 640px) {
-  :root { --cards-visible: 1.15; --card-gap: 20px; }
+  :root { --cards-visible: 1; --card-gap: 20px; }
+
+  /* Kleinere letters op de telefoon, zodat tekst en beeld samen passen. */
+  .eyebrow, .label, .counter { font-size: 12px; letter-spacing: 0.1em; }
+  .hero-text { padding: 28px var(--gutter) 28px; gap: 18px; }
+  .hero h1 { font-size: 30px; }
+  .lead { font-size: 16px; }
+  .button { padding: 12px 18px; font-size: 14px; }
+  .section-head h2 { font-size: 22px; }
+  .statement { font-size: 22px; }
+  .over-text > p:not(.statement):not(.eyebrow), .skills-intro { font-size: 16px; }
+  .over-text { gap: 16px; }
+  .portrait { width: 180px; height: 212px; }
+  .card-title, .skill-name { font-size: 18px; }
+  .card-meta { font-size: 13px; }
+  .text-link { font-size: 14px; }
+  .filter { padding: 7px 12px; font-size: 13px; }
 }
 
 /* Animaties ------------------------------------------------------------- */
