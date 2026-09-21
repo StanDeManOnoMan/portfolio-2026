@@ -36,8 +36,11 @@ const CATEGORY_LABELS = {
 };
 
 // Per project:
-//   category  sleutel uit CATEGORY_LABELS
-//   url       live adres van de pagina. Leeg = geen "Bekijk live"-knop in de lightbox.
+//   thumb       screenshot van de bovenkant, 1280 breed (kaart)
+//   thumbSmall  dezelfde screenshot op 640 breed, voor telefoons. Mag ontbreken.
+//   full        screenshot van de hele pagina (lightbox)
+//   category    sleutel uit CATEGORY_LABELS
+//   url         live adres van de pagina. Leeg = geen "Bekijk live"-knop in de lightbox.
 
 const PROJECTS = [
   {
@@ -45,6 +48,7 @@ const PROJECTS = [
     meta: 'Landingspagina · Ergowerken · 2026',
     description: 'Dienstpagina met een keuzehulp, een overzicht van alle kabelmanagement-diensten, een kaart van het werkgebied en veelgestelde vragen. Gebouwd tijdens mijn stage bij Ergowerken.',
     thumb: 'images/projects/kabelmanagement.jpg',
+    thumbSmall: 'images/projects/kabelmanagement-640.jpg',
     full: 'images/projects/kabelmanagement-full.jpg',
     alt: 'Kabelmanagement-pagina van Ergowerken',
     category: 'stage',
@@ -55,6 +59,7 @@ const PROJECTS = [
     meta: 'Landingspagina · Ergowerken · 2026',
     description: 'Tweede dienstpagina in dezelfde huisstijl, met vier situaties waaruit een bezoeker kiest en een knop voor een intake.',
     thumb: 'images/projects/projectinrichting.jpg',
+    thumbSmall: 'images/projects/projectinrichting-640.jpg',
     full: 'images/projects/projectinrichting-full.jpg',
     alt: 'Projectinrichting-pagina van Ergowerken',
     category: 'stage',
@@ -65,6 +70,7 @@ const PROJECTS = [
     meta: 'Landingspagina · Ergowerken · 2026',
     description: 'Pagina voor HR en medewerkers met een gratis DIY quick scan en de optie voor een scan op locatie.',
     thumb: 'images/projects/quickscan.jpg',
+    thumbSmall: 'images/projects/quickscan-640.jpg',
     full: 'images/projects/quickscan-full.jpg',
     alt: 'Quick Scan-pagina van Ergowerken',
     category: 'stage',
@@ -75,6 +81,7 @@ const PROJECTS = [
     meta: 'Website · schoolopdracht · 2025',
     description: 'Website voor een wijkraad met home, nieuws, over ons, meldpunt en contact. Eigen structuur en navigatie over vijf pagina’s.',
     thumb: 'images/projects/wijkraad.jpg',
+    thumbSmall: 'images/projects/wijkraad-640.jpg',
     full: 'images/projects/wijkraad-full.jpg',
     alt: 'Homepagina van de website voor Wijkraad Heusdenhout',
     category: 'school',
@@ -85,6 +92,7 @@ const PROJECTS = [
     meta: 'Productpagina · schoolopdracht · 2025',
     description: 'Productpagina met een grote video-hero, specificaties en een bestelknop.',
     thumb: 'images/projects/steamdeck.jpg',
+    thumbSmall: 'images/projects/steamdeck-640.jpg',
     full: 'images/projects/steamdeck-full.jpg',
     alt: 'Steam Deck productpagina',
     category: 'school',
@@ -95,6 +103,7 @@ const PROJECTS = [
     meta: 'Productpagina · schoolopdracht · 2025',
     description: 'Productpagina met galerij, technische specificaties en een light/dark-toggle.',
     thumb: 'images/projects/xbox.jpg',
+    thumbSmall: 'images/projects/xbox-640.jpg',
     full: 'images/projects/xbox-full.jpg',
     alt: 'Xbox controller productpagina',
     category: 'school',
@@ -143,10 +152,14 @@ function initNav() {
 function buildCard(project, index) {
   const li = document.createElement('li');
   li.className = 'card';
+  // Kleine versie voor telefoons als die er is; de browser kiest zelf.
+  const srcset = project.thumbSmall
+    ? `srcset="${project.thumbSmall} 640w, ${project.thumb} 1280w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"`
+    : '';
   li.innerHTML = `
     <button class="card-button" type="button" data-index="${index}" aria-label="Bekijk ${project.title} op volledige grootte">
       <span class="card-media">
-        <img src="${project.thumb}" alt="${project.alt}" loading="lazy" width="1280" height="800" draggable="false">
+        <img src="${project.thumb}" ${srcset} alt="${project.alt}" loading="lazy" width="1280" height="800" draggable="false">
         <span class="card-zoom" aria-hidden="true">
           <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
         </span>
@@ -304,7 +317,7 @@ function initCarousel(openLightbox) {
   track.addEventListener('click', (event) => {
     if (justDragged) { event.preventDefault(); return; }
     const button = event.target.closest('.card-button');
-    if (button) openLightbox(Number(button.dataset.index));
+    if (button) openLightbox(Number(button.dataset.index), button.querySelector('.card-media'));
   });
 
   let resizeTimer;
@@ -394,11 +407,46 @@ function initLightbox() {
     }
   }
 
-  function open(index) {
+  // Het kader begint op de plek en grootte van de aangeklikte kaart en groeit
+  // naar zijn eigen plek (FLIP). De rest van de lightbox fadet daarna in (CSS).
+  function growFrom(fromEl) {
+    const from = fromEl.getBoundingClientRect();
+    const to = scroller.getBoundingClientRect();
+    if (!from.width || !to.width) return;
+    const dx = from.left - to.left;
+    const dy = from.top - to.top;
+    const sx = from.width / to.width;
+    const sy = from.height / to.height;
+
+    dialog.classList.add('is-opening');
+    scroller.style.transformOrigin = 'top left';
+    scroller.style.transition = 'none';
+    scroller.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
+
+    let finished = false;
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      scroller.style.transition = '';
+      scroller.style.transform = '';
+      scroller.style.transformOrigin = '';
+      dialog.classList.remove('is-opening');
+      scroller.removeEventListener('transitionend', finish);
+    };
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      scroller.style.transition = 'transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1)';
+      scroller.style.transform = 'translate(0, 0) scale(1, 1)';
+      scroller.addEventListener('transitionend', finish);
+      setTimeout(finish, 700);
+    }));
+  }
+
+  function open(index, fromEl) {
     lastTrigger = document.activeElement;
     show(index);
     dialog.showModal();
     scroller.focus();
+    if (fromEl && !reducedMotion) growFrom(fromEl);
   }
 
   dialog.addEventListener('close', () => {
@@ -478,6 +526,13 @@ function initContact() {
 
     const data = new FormData(form);
 
+    // Spamval gevuld? Dan is het een bot: doen alsof het gelukt is, niets versturen.
+    if (data.get('_gotcha')) {
+      form.reset();
+      setStatus('Bedankt, je bericht is verstuurd.', 'is-success');
+      return;
+    }
+
     if (CONFIG.formEndpoint) {
       setStatus('Bezig met versturen…');
       try {
@@ -515,7 +570,7 @@ function initReveal() {
   // Alles wat moet infaden: per sectie eerst de kop, dan de inhoud.
   document.querySelectorAll('main .section:not(.over)').forEach((section) => {
     const head = section.querySelector('.section-head');
-    const blocks = section.querySelectorAll('.two-col > *, .filters, .carousel, .werk .note');
+    const blocks = section.querySelectorAll('.two-col > *, .werk-bar, .carousel, .werk .note');
     if (head) { head.classList.add('reveal'); }
     blocks.forEach((block, i) => {
       block.classList.add('reveal');

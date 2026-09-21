@@ -149,6 +149,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .icon-button:hover { background: var(--ink); color: var(--white); }
 .icon-button--solid { background: var(--ink); color: var(--white); }
 .icon-button--solid:hover { background: var(--accent); border-color: var(--accent); }
+.icon-button--small { width: 36px; height: 36px; }
 .icon-button--dark { border-color: var(--dark-line); color: var(--on-dark); }
 .icon-button--dark:hover { background: var(--on-dark); color: var(--dark); }
 
@@ -272,8 +273,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* Carrousel ------------------------------------------------------------- */
 
-.carousel-controls { display: flex; align-items: center; gap: 16px; }
-.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: -8px 0 24px; }
+.werk-bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin: -8px 0 20px; }
+.carousel-controls { display: flex; align-items: center; gap: 12px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
 .filter {
   padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line-strong);
   background: transparent; color: var(--body); font: inherit; font-size: 14px; font-weight: 500;
@@ -331,6 +333,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .contact-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 24px; }
 .field { display: flex; flex-direction: column; gap: 8px; }
 .field--full { grid-column: 1 / -1; }
+/* Spamval: buiten beeld, niet via tab bereikbaar, wel aanwezig voor bots. */
+.field--trap { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
 .field label { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .field input, .field textarea {
   width: 100%; padding: 14px 16px; border: 1px solid var(--line-strong); border-radius: var(--radius);
@@ -405,6 +409,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
   .section { padding: 40px 0 48px; }
   .section-head { flex-wrap: wrap; margin-bottom: 24px; }
+  .werk-bar { flex-wrap: wrap; margin-bottom: 16px; }
   .two-col, .over-grid { grid-template-columns: 1fr; gap: 28px; }
   .over { padding: 40px 0 48px; }
 
@@ -524,6 +529,13 @@ ul { margin: 0; padding: 0; list-style: none; }
   .js .hero-visual img { --drift-scale: 1.1; --drift-x: -4%; --drift-y: -3%; animation-duration: 4.5s; }
 }
 
+/* Lightbox openen: het kader groeit vanuit de aangeklikte kaart naar zijn
+   plek (de verplaatsing zelf zet script.js als transform), de achtergrond en
+   de tekst eromheen faden in. */
+.js .lightbox[open]::backdrop { animation: fade-in 0.35s ease-out; }
+.js .lightbox-head, .js .lightbox-foot, .js .lightbox-nav { transition: opacity 0.3s ease-out 0.25s; }
+.js .lightbox.is-opening .lightbox-head, .js .lightbox.is-opening .lightbox-foot, .js .lightbox.is-opening .lightbox-nav { opacity: 0; transition: none; }
+
 /* Direct tonen, zonder overgang: voor onderdelen die al boven het scherm liggen. */
 .js .reveal--instant, .js .reveal--instant .reveal, .js .reveal--instant .bar-fill { transition: none !important; }
 
@@ -546,4 +558,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   .js .over { background: var(--tint); transition: none; }
   .js .hero-visual.has-parallax .hero-visual-inner { transform: none; }
   .js .hero-visual img { animation: none; }
+  .js .lightbox[open]::backdrop { animation: none; }
+  .js .lightbox-head, .js .lightbox-foot, .js .lightbox-nav { transition: none; }
 }

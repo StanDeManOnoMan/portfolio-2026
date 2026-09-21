@@ -65,6 +65,8 @@ meer nodig hebt.
 1. Maak twee screenshots van de pagina op 1280 pixels breed:
    - bovenkant (voor de kaart): `images/projects/naam.jpg`
    - volledige pagina (voor de lightbox): `images/projects/naam-full.jpg`
+   - optioneel een kleine versie van de bovenkant op 640 breed: `images/projects/naam-640.jpg`
+     (veld `thumbSmall`; telefoons laden dan minder). Laat het veld weg als je die niet maakt.
 2. Voeg in `script.js` een blok toe aan de lijst `PROJECTS` (kopieer een bestaand blok).
    Kies bij `category` een sleutel uit `CATEGORY_LABELS` (`stage`, `school`, `eigen`).
    De filterknoppen boven de carrousel volgen vanzelf: een categorie die niet gebruikt
@@ -90,6 +92,12 @@ Wil je terug naar "alleen systeem volgen": verwijder de knop uit `index.html`.
 
 - **404.html**: eigen foutpagina in dezelfde stijl. GitHub Pages pakt hem automatisch op.
   Hij heeft zijn eigen CSS (bewust, zodat hij ook in submappen werkt).
+- **Spamval in het formulier**: het verborgen veld `_gotcha`. Mensen zien het niet, bots
+  vullen het in; zulke inzendingen worden niet verstuurd (en Formspree negeert ze ook).
+- **Gestructureerde gegevens**: het blok `application/ld+json` in de `<head>` van
+  `index.html` vertelt Google wie je bent. Pas het aan als je adres of functie verandert.
+- **Kleine afbeeldingen voor telefoons**: `images/hero-800.jpg`, `images/hero-dark-800.jpg`
+  en `images/projects/*-640.jpg`. Maak je een nieuwe collage, maak dan ook de 800-versie.
 - **Swipen in de carrousel**: op telefoon en tablet met een vinger, op desktop door te
   slepen met de muis. Na een swipe glijdt de rij naar de dichtstbijzijnde kaart en wacht
   3 seconden voordat hij weer vanzelf loopt (`HOLD_AFTER_SWIPE` in `script.js`).
