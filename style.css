@@ -230,7 +230,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .hero-visual-shadow {
   grid-column: 3 / -1;
   display: flex;
-  filter: drop-shadow(-28px 0 36px rgba(15, 17, 21, 0.16));
+  filter: drop-shadow(-14px 0 28px rgba(15, 17, 21, 0.08));
 }
 .hero-visual {
   flex: 1 1 auto; min-width: 0;
