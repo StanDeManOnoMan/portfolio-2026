@@ -6,70 +6,55 @@
   html, body { margin: 0; }
   body { width: 1600px; height: 1200px; overflow: hidden; background: #ffffff; font-family: system-ui, sans-serif; }
   .stage { position: absolute; inset: 0; perspective: 3000px; perspective-origin: 50% 45%; }
-  /* Raster van 6 x 5 vensters. Meer vensters in dezelfde ruimte = kleinere
-     vensters, dus meer projecten in beeld. */
+  /* Raster van 7 x 6 vensters. De volgorde (zie script onderaan) verschuift per
+     rij drie plekken, zodat elk blok van 4 bij 5 vensters alle projecten bevat.
+     Zo zie je op elk scherm alle projecten, ook als maar een deel in beeld is. */
   .deck {
     position: absolute; left: 50%; top: 50%;
     width: 3000px; height: 1900px;
     margin-left: -1500px; margin-top: -950px;
-    display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(5, 1fr);
+    display: grid; grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(6, 1fr);
     gap: 14px;
     transform: rotateX(20deg) rotateY(-14deg) rotateZ(7deg) scale(1.0);
     transform-style: preserve-3d;
   }
   .win {
-    position: relative; background: #ffffff; border-radius: 12px; overflow: hidden;
+    position: relative; background: #ffffff; border-radius: 10px; overflow: hidden;
     border: 1px solid #e1e4ea;
     display: flex; flex-direction: column;
   }
   .win:nth-child(3n+2) { transform: translateZ(50px); }
   .win:nth-child(4n+3) { transform: translateZ(28px); }
   .win:nth-child(5n) { transform: translateZ(70px); }
-  .bar { height: 26px; background: #f1f2f5; border-bottom: 1px solid #e1e4ea; display: flex; align-items: center; gap: 8px; padding: 0 14px; flex-shrink: 0; }
-  .dot { width: 9px; height: 9px; border-radius: 50%; background: #c9cdd6; }
+  .bar { height: 22px; background: #f1f2f5; border-bottom: 1px solid #e1e4ea; display: flex; align-items: center; gap: 7px; padding: 0 12px; flex-shrink: 0; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #c9cdd6; }
   .dot.accent { background: #2f5bff; }
-  .url { margin-left: 10px; height: 14px; flex-grow: 1; border-radius: 7px; background: #e6e8ee; }
+  .url { margin-left: 8px; height: 12px; flex-grow: 1; border-radius: 6px; background: #e6e8ee; }
   .win img { width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; flex-grow: 1; min-height: 0; }
 </style>
 </head>
 <body>
   <div class="stage">
-    <div class="deck">
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/steamdeck.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/kabelmanagement.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/wijkraad.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/xbox.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/projectinrichting.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/quickscan.jpg" alt=""></div>
-
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/formulier.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/duo-flyer.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/steamdeck.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/kabelmanagement.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/wijkraad.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/xbox.jpg" alt=""></div>
-
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/projectinrichting.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/quickscan.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/formulier.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/duo-flyer.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/steamdeck.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/kabelmanagement.jpg" alt=""></div>
-
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/wijkraad.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/xbox.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/projectinrichting.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/quickscan.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/formulier.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/duo-flyer.jpg" alt=""></div>
-
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/steamdeck.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/kabelmanagement.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/wijkraad.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/xbox.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/projectinrichting.jpg" alt=""></div>
-      <div class="win"><div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div><img src="../projects/quickscan.jpg" alt=""></div>
-    </div>
+    <div class="deck" id="deck"></div>
   </div>
+  <script>
+    // Projecten in de collage. Nieuw project? Voeg de bestandsnaam hier toe.
+    var projects = [
+      'steamdeck', 'kabelmanagement', 'wijkraad', 'xbox',
+      'projectinrichting', 'quickscan', 'formulier', 'duo-flyer'
+    ];
+    var cols = 7, rows = 6, shift = 3;
+    var deck = document.getElementById('deck');
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        var name = projects[(r * shift + c) % projects.length];
+        var win = document.createElement('div');
+        win.className = 'win';
+        win.innerHTML = '<div class="bar"><span class="dot accent"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div>' +
+          '<img src="../projects/' + name + '.jpg" alt="">';
+        deck.appendChild(win);
+      }
+    }
+  </script>
 </body>
 </html>
