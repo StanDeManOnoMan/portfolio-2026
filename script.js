@@ -146,7 +146,7 @@ function buildCard(project, index) {
   li.innerHTML = `
     <button class="card-button" type="button" data-index="${index}" aria-label="Bekijk ${project.title} op volledige grootte">
       <span class="card-media">
-        <img src="${project.thumb}" alt="${project.alt}" loading="lazy" width="1280" height="800">
+        <img src="${project.thumb}" alt="${project.alt}" loading="lazy" width="1280" height="800" draggable="false">
         <span class="card-zoom" aria-hidden="true">
           <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
         </span>
@@ -177,6 +177,9 @@ function initCarousel(openLightbox) {
   let paused = false;
   let snap = null;             // { from, to, start } tijdens een pijl-animatie
   let lastTime = null;
+  let drag = null;             // { id, startX, startOffset, moved } tijdens swipen
+  let holdUntil = 0;           // na een swipe even stil blijven staan
+  let justDragged = false;     // voorkomt dat een swipe als klik telt
 
   const total = () => activeProjects.length;
 
@@ -230,7 +233,7 @@ function initCarousel(openLightbox) {
       const t = Math.min((now - snap.start) / SNAP_DURATION, 1);
       offset = snap.from + (snap.to - snap.from) * easeOut(t);
       if (t >= 1) { snap = null; offset = ((offset % cycle) + cycle) % cycle; }
-    } else if (!paused && !reducedMotion) {
+    } else if (!paused && !drag && now >= holdUntil && !reducedMotion) {
       offset += SPEED * dt / 1000;
       if (offset >= cycle) offset -= cycle;
     }
@@ -258,8 +261,48 @@ function initCarousel(openLightbox) {
   viewport.addEventListener('focusout', () => { paused = false; });
   document.addEventListener('visibilitychange', () => { lastTime = null; });
 
-  // Kaart aanklikken opent de lightbox.
+  // Swipen met een vinger (of slepen met de muis). Verticaal scrollen blijft
+  // van de browser dankzij touch-action: pan-y in de CSS.
+  const HOLD_AFTER_SWIPE = 3000;   // ms stilstaan na een swipe
+  const DRAG_THRESHOLD = 8;        // pixels voordat een tik een swipe wordt
+
+  viewport.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    drag = { id: event.pointerId, startX: event.clientX, startOffset: snap ? snap.to : offset, moved: false };
+    snap = null;
+  });
+
+  viewport.addEventListener('pointermove', (event) => {
+    if (!drag || event.pointerId !== drag.id) return;
+    const dx = event.clientX - drag.startX;
+    if (!drag.moved) {
+      if (Math.abs(dx) < DRAG_THRESHOLD) return;
+      drag.moved = true;
+      viewport.classList.add('is-dragging');
+      try { viewport.setPointerCapture(event.pointerId); } catch (e) { /* niet ondersteund */ }
+    }
+    offset = drag.startOffset - dx;
+    if (cycle > 0) offset = ((offset % cycle) + cycle) % cycle;
+  });
+
+  function endDrag(event) {
+    if (!drag || event.pointerId !== drag.id) return;
+    const moved = drag.moved;
+    drag = null;
+    viewport.classList.remove('is-dragging');
+    if (!moved) return;
+    // Naar de dichtstbijzijnde kaart glijden en daarna even wachten.
+    if (step > 0) snapTo(Math.round(offset / step) * step);
+    holdUntil = performance.now() + HOLD_AFTER_SWIPE;
+    justDragged = true;
+    setTimeout(() => { justDragged = false; }, 100);
+  }
+  viewport.addEventListener('pointerup', endDrag);
+  viewport.addEventListener('pointercancel', endDrag);
+
+  // Kaart aanklikken opent de lightbox (niet na een swipe).
   track.addEventListener('click', (event) => {
+    if (justDragged) { event.preventDefault(); return; }
     const button = event.target.closest('.card-button');
     if (button) openLightbox(Number(button.dataset.index));
   });

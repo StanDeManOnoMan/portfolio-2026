@@ -90,6 +90,9 @@ Wil je terug naar "alleen systeem volgen": verwijder de knop uit `index.html`.
 
 - **404.html**: eigen foutpagina in dezelfde stijl. GitHub Pages pakt hem automatisch op.
   Hij heeft zijn eigen CSS (bewust, zodat hij ook in submappen werkt).
+- **Swipen in de carrousel**: op telefoon en tablet met een vinger, op desktop door te
+  slepen met de muis. Na een swipe glijdt de rij naar de dichtstbijzijnde kaart en wacht
+  3 seconden voordat hij weer vanzelf loopt (`HOLD_AFTER_SWIPE` in `script.js`).
 - **Terug naar boven**: de ronde knop rechtsonder, verschijnt na ongeveer een halve
   schermhoogte scrollen. Code: `initToTop` in `script.js`, stijl `.to-top` in `style.css`.
 

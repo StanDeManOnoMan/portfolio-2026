@@ -281,7 +281,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .filter:hover { border-color: var(--ink); color: var(--ink); }
 .filter[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--white); }
-.carousel { overflow: hidden; }
+/* Swipen: horizontaal is voor de carrousel, verticaal blijft gewoon scrollen. */
+.carousel { overflow: hidden; touch-action: pan-y; cursor: grab; }
+.carousel.is-dragging { cursor: grabbing; user-select: none; }
+.carousel.is-dragging .card-media img { transform: none; }
 .track {
   display: flex; gap: var(--card-gap); will-change: transform;
 }
