@@ -132,6 +132,8 @@ Koppen: Bricolage Grotesque. Tekst: Instrument Sans. Beide via Google Fonts in `
 - De Over-sectie kleurt in bij ongeveer 25% in beeld, de inhoud verschijnt bij 50%.
   Percentages en snelheden: `script.js` (`once(0.25, …)`, `once(0.5, …)`) en `style.css`
   (`.js .over`, `.js .over .reveal.is-visible`).
+- De lightbox groeit in 0,7 seconde uit de aangeklikte kaart en krimpt bij het sluiten in
+  0,5 seconde terug: `GROW_MS` en `SHRINK_MS` in `script.js` (`initLightbox`).
 - De balken bij Vaardigheden vullen zich in 2 seconden, elke volgende balk start 0,2 seconde
   later: `style.css`, regels met `.bar-fill` onder "Animaties".
 - Alles staat uit voor bezoekers met "minder beweging" in hun systeeminstellingen.

@@ -532,9 +532,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* Lightbox openen: het kader groeit vanuit de aangeklikte kaart naar zijn
    plek (de verplaatsing zelf zet script.js als transform), de achtergrond en
    de tekst eromheen faden in. */
-.js .lightbox[open]::backdrop { animation: fade-in 0.35s ease-out; }
-.js .lightbox-head, .js .lightbox-foot, .js .lightbox-nav { transition: opacity 0.3s ease-out 0.25s; }
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+.js .lightbox[open]::backdrop { animation: fade-in 0.5s ease-out; }
+.js .lightbox.is-closing::backdrop { animation: fade-out 0.5s ease-in forwards; }
+.js .lightbox-head, .js .lightbox-foot, .js .lightbox-nav { transition: opacity 0.35s ease-out 0.4s; }
 .js .lightbox.is-opening .lightbox-head, .js .lightbox.is-opening .lightbox-foot, .js .lightbox.is-opening .lightbox-nav { opacity: 0; transition: none; }
+.js .lightbox.is-closing .lightbox-head, .js .lightbox.is-closing .lightbox-foot, .js .lightbox.is-closing .lightbox-nav { opacity: 0; transition: opacity 0.25s ease-in; }
 
 /* Direct tonen, zonder overgang: voor onderdelen die al boven het scherm liggen. */
 .js .reveal--instant, .js .reveal--instant .reveal, .js .reveal--instant .bar-fill { transition: none !important; }
@@ -558,6 +564,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   .js .over { background: var(--tint); transition: none; }
   .js .hero-visual.has-parallax .hero-visual-inner { transform: none; }
   .js .hero-visual img { animation: none; }
-  .js .lightbox[open]::backdrop { animation: none; }
+  .js .lightbox[open]::backdrop, .js .lightbox.is-closing::backdrop { animation: none; }
   .js .lightbox-head, .js .lightbox-foot, .js .lightbox-nav { transition: none; }
 }

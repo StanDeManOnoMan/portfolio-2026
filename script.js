@@ -407,65 +407,114 @@ function initLightbox() {
     }
   }
 
-  // Het kader begint op de plek en grootte van de aangeklikte kaart en groeit
-  // naar zijn eigen plek (FLIP). De rest van de lightbox fadet daarna in (CSS).
-  function growFrom(fromEl) {
-    const from = fromEl.getBoundingClientRect();
-    const to = scroller.getBoundingClientRect();
-    if (!from.width || !to.width) return;
-    const dx = from.left - to.left;
-    const dy = from.top - to.top;
-    const sx = from.width / to.width;
-    const sy = from.height / to.height;
+  // Openen en sluiten met een overgang. Het kader begint op de plek en grootte
+  // van de aangeklikte kaart en groeit naar zijn eigen plek (FLIP); bij het
+  // sluiten krimpt het weer terug. De rest van de lightbox fadet mee (CSS).
+  const GROW_MS = 700;
+  const SHRINK_MS = 500;
+  let origin = null;       // de kaart waaruit de lightbox geopend is
+  let closing = false;
 
+  // Transform die het kader precies op `rect` legt.
+  function transformTo(rect) {
+    const own = scroller.getBoundingClientRect();
+    if (!rect || !rect.width || !own.width) return null;
+    const sx = rect.width / own.width;
+    const sy = rect.height / own.height;
+    return `translate(${rect.left - own.left}px, ${rect.top - own.top}px) scale(${sx}, ${sy})`;
+  }
+
+  function resetScroller() {
+    scroller.style.transition = '';
+    scroller.style.transform = '';
+    scroller.style.transformOrigin = '';
+    scroller.style.opacity = '';
+  }
+
+  function growFrom(fromEl) {
+    const start = transformTo(fromEl.getBoundingClientRect());
+    if (!start) return;
     dialog.classList.add('is-opening');
     scroller.style.transformOrigin = 'top left';
     scroller.style.transition = 'none';
-    scroller.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
+    scroller.style.transform = start;
 
     let finished = false;
     const finish = () => {
       if (finished) return;
       finished = true;
-      scroller.style.transition = '';
-      scroller.style.transform = '';
-      scroller.style.transformOrigin = '';
+      resetScroller();
       dialog.classList.remove('is-opening');
       scroller.removeEventListener('transitionend', finish);
     };
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      scroller.style.transition = 'transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1)';
+      scroller.style.transition = `transform ${GROW_MS}ms cubic-bezier(0.2, 0.7, 0.2, 1)`;
       scroller.style.transform = 'translate(0, 0) scale(1, 1)';
       scroller.addEventListener('transitionend', finish);
-      setTimeout(finish, 700);
+      setTimeout(finish, GROW_MS + 200);
     }));
+  }
+
+  function shrinkToOrigin(done) {
+    const target = origin && document.contains(origin) ? transformTo(origin.getBoundingClientRect()) : null;
+    dialog.classList.add('is-closing');
+    scroller.style.transition = `transform ${SHRINK_MS}ms cubic-bezier(0.4, 0, 0.6, 1), opacity ${SHRINK_MS}ms ease-in`;
+    if (target) {
+      scroller.style.transformOrigin = 'top left';
+      scroller.style.transform = target;
+    } else {
+      // Kaart niet meer in beeld (bijvoorbeeld na filteren): dan gewoon krimpen en vervagen.
+      scroller.style.transformOrigin = 'center';
+      scroller.style.transform = 'scale(0.92)';
+      scroller.style.opacity = '0';
+    }
+    setTimeout(done, SHRINK_MS);
   }
 
   function open(index, fromEl) {
     lastTrigger = document.activeElement;
+    origin = fromEl || null;
     show(index);
     dialog.showModal();
     scroller.focus();
     if (fromEl && !reducedMotion) growFrom(fromEl);
   }
 
+  function close() {
+    if (!dialog.open || closing) return;
+    if (reducedMotion) { dialog.close(); return; }
+    closing = true;
+    shrinkToOrigin(() => dialog.close());
+  }
+
   dialog.addEventListener('close', () => {
     image.src = '';
+    closing = false;
+    dialog.classList.remove('is-opening', 'is-closing');
+    resetScroller();
     if (lastTrigger && typeof lastTrigger.focus === 'function') lastTrigger.focus();
   });
 
-  document.getElementById('lightbox-close').addEventListener('click', () => dialog.close());
+  // Esc: eerst de overgang, dan pas echt sluiten.
+  dialog.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    close();
+  });
+
+  document.getElementById('lightbox-close').addEventListener('click', close);
   document.getElementById('lightbox-prev').addEventListener('click', () => show(current - 1));
   document.getElementById('lightbox-next').addEventListener('click', () => show(current + 1));
 
   dialog.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowLeft') show(current - 1);
     if (event.key === 'ArrowRight') show(current + 1);
+    // Esc zelf afvangen, zodat de browser het venster niet direct dichtklapt.
+    if (event.key === 'Escape') { event.preventDefault(); close(); }
   });
 
   // Klik op de donkere achtergrond sluit de lightbox.
   dialog.addEventListener('click', (event) => {
-    if (event.target === dialog) dialog.close();
+    if (event.target === dialog) close();
   });
 
   return open;
