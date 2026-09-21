@@ -76,10 +76,15 @@ meer nodig hebt.
 
 ## Donkere modus
 
-De site volgt de systeeminstelling van de bezoeker (licht of donker). Alle kleuren staan
-als variabelen bovenin `style.css`: eerst de lichte set in `:root`, daaronder de donkere
-set in `@media (prefers-color-scheme: dark)`. Wil je een kleur aanpassen, doe dat dan in
-beide sets. Testen kan in Chrome via DevTools: Rendering, "Emulate CSS prefers-color-scheme".
+Bij het eerste bezoek volgt de site de systeeminstelling van de bezoeker (licht of
+donker). Met de ronde knop in de header (maan/zon) wissel je zelf; die keuze wordt in de
+browser onthouden (`localStorage`, sleutel `theme`).
+
+Alle kleuren staan als variabelen bovenin `style.css`: eerst de lichte set in `:root`,
+daaronder de donkere set in `:root[data-theme="dark"]`. Wil je een kleur aanpassen, doe
+dat dan in beide sets. Het kiezen van licht of donker gebeurt in het kleine script in de
+`<head>` van `index.html` (en van `404.html`), de knop zelf in `initTheme` in `script.js`.
+Wil je terug naar "alleen systeem volgen": verwijder de knop uit `index.html`.
 
 ## Overige onderdelen
 

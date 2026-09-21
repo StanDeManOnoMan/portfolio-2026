@@ -587,6 +587,42 @@ function initParallax() {
   update();
 }
 
+/* ---- Licht / donker ---------------------------------------------------- */
+
+// De eerste keuze (systeem of onthouden) maakt het scriptje in de <head> van
+// index.html, vóór het tekenen. Hier alleen de knop en het onthouden.
+function initTheme() {
+  const root = document.documentElement;
+  const button = document.getElementById('theme-toggle');
+  const heroSource = document.getElementById('hero-dark-source');
+  const meta = document.getElementById('theme-color');
+  const system = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function apply(theme) {
+    root.dataset.theme = theme;
+    if (heroSource) heroSource.media = theme === 'dark' ? 'all' : 'not all';
+    if (meta) meta.content = theme === 'dark' ? '#12141a' : '#f7f7f8';
+    if (button) {
+      button.setAttribute('aria-label', theme === 'dark' ? 'Schakel naar lichte weergave' : 'Schakel naar donkere weergave');
+    }
+  }
+
+  apply(root.dataset.theme || (system.matches ? 'dark' : 'light'));
+
+  button?.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    apply(next);
+    try { localStorage.setItem('theme', next); } catch (e) { /* privémodus: niet onthouden */ }
+  });
+
+  // Zolang er geen eigen keuze is gemaakt, volgt de site het systeem live mee.
+  system.addEventListener('change', (event) => {
+    let saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (e) {}
+    if (!saved) apply(event.matches ? 'dark' : 'light');
+  });
+}
+
 /* ---- Terug naar boven ------------------------------------------------- */
 
 function initToTop() {
@@ -614,6 +650,7 @@ function initToTop() {
 /* ---- Start ------------------------------------------------------------ */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
   initNav();
   const openLightbox = initLightbox();
   const refreshCarousel = initCarousel(openLightbox);

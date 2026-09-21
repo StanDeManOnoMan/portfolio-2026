@@ -38,27 +38,26 @@
   --cards-visible: 3;
 }
 
-/* Donkere modus: volgt de systeeminstelling van de bezoeker. Alleen de
-   kleurtokens wisselen, de rest van de opmaak blijft gelijk. */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
+/* Donkere modus. Het scriptje in de <head> van index.html zet data-theme op
+   "light" of "dark": de keuze via de knop in de header, anders de
+   systeeminstelling. Alleen de kleurtokens wisselen, de opmaak blijft gelijk. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
 
-    --bg: #12141a;
-    --tint: #191c23;
-    --ink: #f1f2f5;
-    --body: #c8ccd5;
-    --muted: #8e939e;
-    --line: #2a2e38;
-    --line-strong: #3a3f4b;
-    --placeholder: #232730;
-    --accent: #6b8cff;
-    --white: #0c0e12;
-    --header-bg: rgba(18, 20, 26, 0.88);
-    --status: #3ccf82;
-    --success: #4fc98a;
-    --error: #ef6b5e;
-  }
+  --bg: #12141a;
+  --tint: #191c23;
+  --ink: #f1f2f5;
+  --body: #c8ccd5;
+  --muted: #8e939e;
+  --line: #2a2e38;
+  --line-strong: #3a3f4b;
+  --placeholder: #232730;
+  --accent: #6b8cff;
+  --white: #0c0e12;
+  --header-bg: rgba(18, 20, 26, 0.88);
+  --status: #3ccf82;
+  --success: #4fc98a;
+  --error: #ef6b5e;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -175,14 +174,28 @@ ul { margin: 0; padding: 0; list-style: none; }
   padding: 22px var(--gutter);
 }
 .brand { font-family: var(--font-display); font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
-.nav-links { display: flex; gap: 36px; font-size: 15px; font-weight: 500; }
+.nav-links { display: flex; gap: 36px; font-size: 15px; font-weight: 500; margin-left: auto; margin-right: 28px; }
+.nav-tools { display: flex; align-items: center; gap: 8px; }
+
+/* Licht/donker-schakelaar: maan in de lichte weergave, zon in de donkere. */
+.theme-toggle {
+  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line-strong);
+  background: transparent; color: var(--body); cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.theme-toggle:hover { border-color: var(--ink); color: var(--ink); }
+.theme-toggle .icon-sun { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
 .nav-toggle {
   display: none; width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer;
   flex-direction: column; justify-content: center; align-items: center; gap: 6px;
 }
 .nav-toggle-bar { width: 22px; height: 2px; background: var(--ink); transition: transform 0.2s; }
-.nav-toggle[aria-expanded="true"] .nav-toggle-bar:first-child { transform: translateY(4px) rotate(45deg); }
-.nav-toggle[aria-expanded="true"] .nav-toggle-bar:last-child { transform: translateY(-4px) rotate(-45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) { transform: translateY(-4px) rotate(-45deg); }
 
 /* Hero ------------------------------------------------------------------ */
 
@@ -361,7 +374,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   .nav { padding: 14px var(--gutter); }
   .nav-toggle { display: flex; }
   .nav-links {
-    display: none; position: absolute; left: 0; right: 0; top: 100%;
+    display: none; position: absolute; left: 0; right: 0; top: 100%; margin: 0;
     flex-direction: column; gap: 0; padding: 8px var(--gutter) 16px;
     background: var(--bg); border-bottom: 1px solid var(--line);
   }
@@ -482,7 +495,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .card-media img, .button, .icon-button, .filter, .to-top { transition: none; }
+  .card-media img, .button, .icon-button, .filter, .to-top, .theme-toggle { transition: none; }
   .js .hero-text > *, .js .hero-visual, .js .hero h1 em { animation: none; opacity: 1; }
   .js .hero h1 em { color: var(--accent); }
   .js .reveal .statement em { color: var(--accent); transition: none; }

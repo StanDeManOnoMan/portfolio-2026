@@ -5,8 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pagina niet gevonden · Stan Dragt</title>
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#f7f7f8" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#12141a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" id="theme-color" content="#f7f7f8">
+  <script>
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (e) {}
+      var theme = (saved === 'light' || saved === 'dark')
+        ? saved
+        : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = theme;
+      var meta = document.getElementById('theme-color');
+      if (meta) meta.content = theme === 'dark' ? '#12141a' : '#f7f7f8';
+    })();
+  </script>
   <link rel="icon" id="favicon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,12 +30,10 @@
       --bg: #f7f7f8; --ink: #0f1115; --body: #2b2f38; --muted: #5f6470;
       --line: #dcdfe5; --accent: #2f5bff; --white: #ffffff;
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        color-scheme: dark;
-        --bg: #12141a; --ink: #f1f2f5; --body: #c8ccd5; --muted: #8e939e;
-        --line: #2a2e38; --accent: #6b8cff; --white: #0c0e12;
-      }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #12141a; --ink: #f1f2f5; --body: #c8ccd5; --muted: #8e939e;
+      --line: #2a2e38; --accent: #6b8cff; --white: #0c0e12;
     }
     *, *::before, *::after { box-sizing: border-box; }
     body {

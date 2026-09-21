@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stan Dragt · Allround mediamaker</title>
   <meta name="description" content="Portfolio van Stan Dragt, allround mediamaker in opleiding bij Curio in Breda. Websites en visuals die er goed uitzien en gewoon werken.">
-  <meta name="theme-color" content="#f7f7f8" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#12141a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" id="theme-color" content="#f7f7f8">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <!-- Deelvoorbeeld (WhatsApp, LinkedIn, X). Verhuist de site naar een eigen domein,
        pas dan de twee volledige URL's hieronder aan. -->
@@ -20,8 +19,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=22">
-  <script>document.documentElement.classList.add('js');</script>
+  <link rel="stylesheet" href="style.css?v=23">
+  <!-- Draait vóór het tekenen van de pagina: zet de klasse "js" en kiest licht of
+       donker. Een eerder gekozen weergave (knop in de header) gaat vóór de
+       systeeminstelling. -->
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+      var saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (e) {}
+      var theme = (saved === 'light' || saved === 'dark')
+        ? saved
+        : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      root.dataset.theme = theme;
+      var meta = document.getElementById('theme-color');
+      if (meta) meta.content = theme === 'dark' ? '#12141a' : '#f7f7f8';
+    })();
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#werk">Direct naar het werk</a>
@@ -29,17 +44,23 @@
   <header class="site-header">
     <nav class="nav" aria-label="Hoofdmenu">
       <a class="brand" href="#top">Stan Dragt</a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
-        <span class="nav-toggle-bar"></span>
-        <span class="nav-toggle-bar"></span>
-        <span class="visually-hidden">Menu</span>
-      </button>
       <ul id="nav-links" class="nav-links">
         <li><a href="#over">Over</a></li>
         <li><a href="#werk">Werk</a></li>
         <li><a href="#vaardigheden">Vaardigheden</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <div class="nav-tools">
+        <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Schakel naar donkere weergave">
+          <svg class="icon icon-moon" width="18" height="18" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg>
+          <svg class="icon icon-sun" width="18" height="18" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1 1M11.6 11.6l1 1M3.4 12.6l1-1M11.6 4.4l1-1"/></svg>
+        </button>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="visually-hidden">Menu</span>
+        </button>
+      </div>
     </nav>
   </header>
 
@@ -67,7 +88,10 @@
       <div class="hero-visual">
         <div class="hero-visual-inner">
           <picture>
-            <source srcset="images/hero-dark.jpg?v=1" media="(prefers-color-scheme: dark)">
+            <!-- Donkere versie van de collage. Het scriptje hieronder zet hem aan of uit
+                 op basis van de gekozen weergave, nog voordat de browser het plaatje kiest. -->
+            <source id="hero-dark-source" srcset="images/hero-dark.jpg?v=1" media="not all">
+            <script>document.getElementById('hero-dark-source').media = document.documentElement.dataset.theme === 'dark' ? 'all' : 'not all';</script>
             <img src="images/hero.jpg?v=3" alt="Collage van websites die Stan Dragt heeft gebouwd, als schuin gekantelde browservensters" width="1600" height="1200" fetchpriority="high">
           </picture>
         </div>
@@ -246,6 +270,6 @@
     <svg class="icon" width="18" height="18" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13V3M4 7l4-4 4 4"/></svg>
   </button>
 
-  <script src="script.js?v=14" defer></script>
+  <script src="script.js?v=15" defer></script>
 </body>
 </html>
