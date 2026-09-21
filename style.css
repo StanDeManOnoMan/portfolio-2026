@@ -526,12 +526,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   from { transform: translate(0, 0) scale(var(--drift-scale, 1.03)); }
   to { transform: translate(var(--drift-x, -2%), var(--drift-y, -1.5%)) scale(var(--drift-scale, 1.03)); }
 }
-.js .hero-visual img { animation: drift 6s ease-in-out infinite alternate; will-change: transform; }
+.js .hero-visual img { animation: drift 4s ease-in-out infinite alternate; will-change: transform; }
 /* Op telefoon en tablet is er geen parallax-laag die extra ruimte geeft. De
    collage wordt daarom iets meer ingezoomd, zodat hij even ver kan glijden
    zonder dat er een rand zichtbaar wordt, en beweegt wat vlotter. */
 @media (max-width: 800px) {
-  .js .hero-visual img { --drift-scale: 1.1; --drift-x: -4%; --drift-y: -3%; animation-duration: 4.5s; }
+  .js .hero-visual img { --drift-scale: 1.1; --drift-x: -4%; --drift-y: -3%; animation-duration: 3s; }
 }
 
 /* Lightbox openen: het kader groeit vanuit de aangeklikte kaart naar zijn
