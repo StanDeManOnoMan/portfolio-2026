@@ -225,8 +225,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 .hero h1 { font-size: clamp(36px, 4.2vw, 54px); font-weight: 600; line-height: 1.05; letter-spacing: -0.03em; }
 .hero h1 em { font-style: normal; color: var(--accent); }
 .lead { margin: 0; font-size: 18px; color: var(--body); max-width: 480px; }
-.hero-visual {
+/* Omhullende laag: draagt de schaduw, omdat een schaduw op het afgeknipte
+   beeld zelf mee zou worden afgeknipt. (Test, 21 sept.) */
+.hero-visual-shadow {
   grid-column: 3 / -1;
+  display: flex;
+  filter: drop-shadow(-28px 0 36px rgba(15, 17, 21, 0.16));
+}
+.hero-visual {
+  flex: 1 1 auto; min-width: 0;
   background: var(--white); overflow: hidden;
   clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%);
 }
@@ -409,7 +416,8 @@ ul { margin: 0; padding: 0; list-style: none; }
      hele beeld te zien is in plaats van een uitsnede. */
   .hero { min-height: 0; grid-template-columns: 1fr; grid-template-rows: auto auto; }
   .hero-text { grid-column: 1; padding: 40px var(--gutter) 36px; }
-  .hero-visual { grid-column: 1; aspect-ratio: 4 / 3; clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%); }
+  .hero-visual-shadow { grid-column: 1; filter: none; }
+  .hero-visual { aspect-ratio: 4 / 3; clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%); }
 
   .section { padding: 40px 0 48px; }
   .section-head { flex-wrap: wrap; margin-bottom: 24px; }
